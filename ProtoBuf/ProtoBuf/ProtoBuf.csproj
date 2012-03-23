@@ -43,8 +43,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CodeGenerator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Proto.cs" />
+    <Compile Include="ProtocolParser.cs" />
+    <Compile Include="ProtocolParserFixed.cs" />
+    <Compile Include="ProtocolParserKey.cs" />
+    <Compile Include="ProtocolParserVarInt.cs" />
+    <Compile Include="ProtoParser.cs" />
+    <Compile Include="ProtoPrepare.cs" />
     <Compile Include="TokenReader.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
