@@ -26,19 +26,23 @@ namespace Protobuf_Test
 
             p.likedThings.Add("coffee", 100);
             p.likedThings.Add("cookies", 599);
-            p.likedThings.Add("veggies", -100);
+            p.likedThings.Add("veggies", -500);
 
             p.myLikes.Add(new LikedThing("one", 1));
             p.myLikes.Add(new LikedThing("two", 2));
 
-            p.randomData.AddRange(System.Text.ASCIIEncoding.ASCII.GetBytes("abcde21300 9fa9j 12031"));
+            p.randomData.AddRange(System.Text.ASCIIEncoding.ASCII.GetBytes("wddrf dgtg456g 00ooi9"));
 
+            // 序列化
             Serializer.Serialize(ms, p);
             byte[] bin = ms.ToArray();
-            Console.WriteLine(string.Format("Size: {0}\nbytes: {1}", bin.Length, BitConverter.ToString(bin)));
+            Console.WriteLine(string.Format("序列化数据的长度： {0}\n\n序列化的字节：{1}\n", bin.Length, BitConverter.ToString(bin)));
 
+            // 反序列化
             Person p2 = Serializer.Deserialize<Person>(new MemoryStream(bin));
             Console.WriteLine(p2);
+
+            Console.ReadKey(true);
         }
     }
 
@@ -80,22 +84,22 @@ namespace Protobuf_Test
         public override string ToString()
         {
             System.Text.StringBuilder sb = new System.Text.StringBuilder();
-            sb.Append(string.Format("{0} : {1}\n", this.id, this.name));
-            sb.Append(string.Format("Big Number: {0}\n", reallyBigInt));
+            sb.Append(string.Format("p.id=\t\t{0}\np.name=\t\t{1}\n", this.id, this.name));
+            sb.Append(string.Format("ulog Size: \t{0}\n", reallyBigInt));
             foreach (KeyValuePair<string, int> kvp in likedThings)
             {
-                sb.Append(string.Format(" - Likes: {0} x {1}\n", kvp.Key, kvp.Value));
+                sb.Append(string.Format(" - likedThings: {0} x {1}\n", kvp.Key, kvp.Value));
             }
 
-            sb.Append("Byte Array: " + System.Text.ASCIIEncoding.ASCII.GetString(randomData.ToArray()) + "\n");
+            sb.Append("字节数组：\t" + System.Text.ASCIIEncoding.ASCII.GetString(randomData.ToArray()) + "\n");
 
-            sb.Append("Other Likes\n");
+            sb.Append("myLikes\n");
             foreach (LikedThing lt in myLikes)
             {
-                sb.Append(string.Format(" - like2: {0} => {1}\n", lt.name, lt.vote));
+                sb.Append(string.Format(" - like2: \t{0} => {1}\n", lt.name, lt.vote));
             }
 
-            sb.Append("My Num: " + myEnum.ToString() + "\n");
+            sb.Append("枚举类型从 zero 到 " + myEnum.ToString());
 
             return sb.ToString();
         }
@@ -110,7 +114,6 @@ namespace Protobuf_Test
         [ProtoMember(2)]
         public int vote;
 
-
         public LikedThing()
         {
         }
@@ -120,6 +123,6 @@ namespace Protobuf_Test
             this.name = name;
             this.vote = vote;
         }
-
     }
+
 }
