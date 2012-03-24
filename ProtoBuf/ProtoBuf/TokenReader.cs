@@ -34,7 +34,7 @@ namespace ProtocolBuffers
         private string GetChar()
         {
             if (offset >= text.Length)
-                throw new EndOfStreamException();
+                throw new EndOfStreamException(); 
 
             char c = text[offset];
             offset += 1;

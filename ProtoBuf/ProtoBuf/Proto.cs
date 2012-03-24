@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace ProtocolBuffers
 {
     /// <summary>
-    /// Representation of a .proto file
+    /// 表示一个 .proto文件
     /// </summary>
     public class Proto
     {

@@ -9,7 +9,6 @@ namespace ProtocolBuffers
         public static Proto Parse(string path)
         {
             Proto p = new Proto();
-
             string t = "";
 
             using (TextReader reader = new StreamReader(path, Encoding.UTF8))
@@ -20,12 +19,11 @@ namespace ProtocolBuffers
                     if (line == null)
                         break;
 
-                    //Remove comment
+                    //移除注释
                     int comment = line.IndexOf("//");
                     if (comment >= 0)
                         line = line.Substring(0, comment);
                     t += line + "\n";
-
                 }
             }
 
@@ -47,7 +45,7 @@ namespace ProtocolBuffers
             Console.Write(tr.Parsed);
             Console.WriteLine(" <---");
             Console.WriteLine(e.Message);
-            Console.WriteLine("Got: " + tr.Next);
+            Console.WriteLine("得到： " + tr.Next);
             return null;
         }
 
