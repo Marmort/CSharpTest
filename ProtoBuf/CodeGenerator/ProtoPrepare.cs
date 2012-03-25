@@ -82,7 +82,6 @@ namespace ProtocolBuffers
                 else
                     f.CSType = "List<" + f.CSType + ">";
             }
-
         }
 
         /// <summary>
@@ -173,7 +172,7 @@ namespace ProtocolBuffers
         }
 
         /// <summary>
-        /// Get the default value in c# form
+        /// Get the default value in C# form
         /// </summary>
         public static string GetCSDefaultValue(Field f)
         {
@@ -221,7 +220,6 @@ namespace ProtocolBuffers
 
             if (m.Enums.ContainsKey(csname))
                 return name;
-
             return csname;
         }
 
@@ -241,9 +239,7 @@ namespace ProtocolBuffers
                     csname += part.Substring(0, 1).ToUpperInvariant() + part.Substring(1);
                 }
             }
-
             return csname;
         }
-
     }
 }

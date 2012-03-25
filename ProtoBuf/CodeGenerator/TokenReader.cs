@@ -31,10 +31,11 @@ namespace ProtocolBuffers
         }
 
         int offset;
+
         private string GetChar()
         {
             if (offset >= text.Length)
-                throw new EndOfStreamException(); 
+                throw new EndOfStreamException();
 
             char c = text[offset];
             offset += 1;
@@ -43,10 +44,9 @@ namespace ProtocolBuffers
 
         public string ReadNext()
         {
-            // 定义字符
-            string c;
+            string c;	//Character
 
-            // 跳过空白字符
+            //Skip whitespace characters
             while (true)
             {
                 c = GetChar();
@@ -55,12 +55,13 @@ namespace ProtocolBuffers
                 break;
             }
 
-            // 判定标记类型
+            //Determine token type
             if (singletoken.Contains(c))
                 return c.ToString();
 
-            // 追踪标记
+            //Follow token
             string token = c;
+
             while (true)
             {
                 c = GetChar();
@@ -69,8 +70,10 @@ namespace ProtocolBuffers
                     offset -= 1;
                     return token;
                 }
+
                 token += c;
             }
+
         }
     }
 }

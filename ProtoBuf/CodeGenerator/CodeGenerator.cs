@@ -45,7 +45,7 @@ namespace " + nameSpace + "\n{\n");
         }
 
         /// <summary>
-        /// Read c# code from sourcePath and write it on code without the initial using statements.
+        /// Read C# code from sourcePath and write it on code without the initial using statements.
         /// </summary>
         private static void ReadCode(TextWriter code, string sourcePath)
         {
