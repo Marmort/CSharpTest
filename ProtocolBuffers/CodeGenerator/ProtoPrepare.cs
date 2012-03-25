@@ -14,7 +14,6 @@ namespace ProtocolBuffers
             f.Name = GetCSPropertyName(m, f.Name);
 
             string name = null;
-
             f.ProtoType = GetScalarProtoType(f.ProtoTypeName);
 
             //Wire, and set type
@@ -82,7 +81,6 @@ namespace ProtocolBuffers
                 else
                     f.CSType = "List<" + f.CSType + ">";
             }
-
         }
 
         /// <summary>
@@ -241,9 +239,7 @@ namespace ProtocolBuffers
                     csname += part.Substring(0, 1).ToUpperInvariant() + part.Substring(1);
                 }
             }
-
             return csname;
         }
-
     }
 }

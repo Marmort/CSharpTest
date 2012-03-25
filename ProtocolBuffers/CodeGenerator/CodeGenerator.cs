@@ -12,7 +12,6 @@ namespace ProtocolBuffers
         /// </summary>
         public static void Save(Proto p, string nameSpace, string csPath)
         {
-
             using (TextWriter codeWriter = new StreamWriter(csPath, false, Encoding.UTF8))
             {
                 codeWriter.WriteLine(@"//
@@ -53,8 +52,7 @@ namespace " + nameSpace + "\n{\n");
             foreach (string line in File.ReadAllLines(sourcePath, Encoding.UTF8))
             {
                 if (line.StartsWith("using"))
-                    continue;
-
+                { continue; }
                 code.WriteLine(line);
             }
             code.WriteLine("#endregion");
@@ -78,11 +76,16 @@ namespace " + nameSpace + "\n{\n");
             foreach (Field f in m.Fields)
             {
                 if (f.Deprecated)
-                    codeWriter.WriteLine("		[Obsolete]");
+                { codeWriter.WriteLine("		[Obsolete]"); }
+
                 if (f.ProtoType == ProtoTypes.Message)
-                    codeWriter.WriteLine("		I" + f.CSType + " " + f.Name + " { get; set; }");
+                { 
+                    codeWriter.WriteLine("		I" + f.CSType + " " + f.Name + " { get; set; }"); 
+                }
                 else
-                    codeWriter.WriteLine("		" + f.CSType + " " + f.Name + " { get; set; }");
+                { 
+                    codeWriter.WriteLine("		" + f.CSType + " " + f.Name + " { get; set; }"); 
+                }
             }
             codeWriter.WriteLine("	}\n");
 
@@ -94,7 +97,9 @@ namespace " + nameSpace + "\n{\n");
             {
                 codeWriter.WriteLine("		public enum " + mepair.Value.Name + "\n		{");
                 foreach (var epair in mepair.Value.Enums)
-                    codeWriter.WriteLine("			" + epair.Key + " = " + epair.Value + ",");
+                { 
+                    codeWriter.WriteLine("			" + epair.Key + " = " + epair.Value + ","); 
+                }
                 codeWriter.WriteLine("		}\n");
             }
 
@@ -102,9 +107,13 @@ namespace " + nameSpace + "\n{\n");
             foreach (Field f in m.Fields)
             {
                 if (f.ProtoType == ProtoTypes.Message)
+                {
                     codeWriter.WriteLine("		public I" + f.CSType + " " + f.Name + " { get; set; }");
+                }
                 else
+                {
                     codeWriter.WriteLine("		public " + f.CSType + " " + f.Name + " { get; set; }");
+                }
             }
 
             //Constructor with default values
@@ -112,9 +121,9 @@ namespace " + nameSpace + "\n{\n");
             foreach (Field f in m.Fields)
             {
                 if (f.Rule == Rules.Repeated)
-                    codeWriter.WriteLine("			this." + f.Name + " = new " + f.CSType + "();");
+                { codeWriter.WriteLine("			this." + f.Name + " = new " + f.CSType + "();"); }
                 if (f.Default != null)
-                    codeWriter.WriteLine("			this." + f.Name + " = " + ProtoPrepare.GetCSDefaultValue(f) + ";");
+                { codeWriter.WriteLine("			this." + f.Name + " = " + ProtoPrepare.GetCSDefaultValue(f) + ";"); }
             }
             codeWriter.WriteLine("		}");
 
@@ -126,7 +135,6 @@ namespace " + nameSpace + "\n{\n");
 
             //End of default class
             codeWriter.WriteLine("\n	}\n");
-
         }
 
         #region Protocol Reader
@@ -277,7 +285,6 @@ namespace " + nameSpace + "\n{\n");
             {
                 GenerateFieldWriter(codeWriter, m, f);
             }
-
             codeWriter.WriteLine("		}");
         }
 
@@ -302,7 +309,6 @@ namespace " + nameSpace + "\n{\n");
         static void GenerateFieldWriter(TextWriter codeWriter, Message m, Field f)
         {
             string indent = "			";
-
 
             if (f.Rule == Rules.Repeated)
             {
@@ -373,7 +379,6 @@ namespace " + nameSpace + "\n{\n");
                 codeWriter.WriteLine(indent + "ProtocolParser.WriteKey(stream, new Key(" + f.ID + ", Wire." + f.WireType + "));");
                 GenerateFieldTypeWriter(codeWriter, f, indent, "stream", "bw", "instance." + f.Name);
             }
-
         }
 
         static void GenerateFieldTypeWriter(TextWriter codeWriter, Field f, string indent, string stream, string binaryWriter, string instance)
@@ -431,6 +436,5 @@ namespace " + nameSpace + "\n{\n");
         }
 
         #endregion
-
     }
 }

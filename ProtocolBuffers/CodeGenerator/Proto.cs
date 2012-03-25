@@ -27,9 +27,7 @@ namespace ProtocolBuffers
     public class Message
     {
         public string Name { get; set; }
-
         public List<Field> Fields { get; set; }
-
         public Dictionary<string, MessageEnum> Enums { get; set; }
 
         public Message()
@@ -65,7 +63,6 @@ namespace ProtocolBuffers
         public string Default { get; set; }
 
         ///Used later in CodeGeneration
-
         public ProtoTypes ProtoType { get; set; }
 
         public Wire WireType { get; set; }

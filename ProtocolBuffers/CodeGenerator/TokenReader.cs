@@ -31,12 +31,10 @@ namespace ProtocolBuffers
         }
 
         int offset;
-
         private string GetChar()
         {
             if (offset >= text.Length)
-                throw new EndOfStreamException();
-
+            { throw new EndOfStreamException(); }
             char c = text[offset];
             offset += 1;
             return c.ToString();
@@ -44,7 +42,8 @@ namespace ProtocolBuffers
 
         public string ReadNext()
         {
-            string c; //Character
+            //Character
+            string c; 
 
             //Skip whitespace characters
             while (true)
@@ -70,10 +69,8 @@ namespace ProtocolBuffers
                     offset -= 1;
                     return token;
                 }
-
                 token += c;
             }
-
         }
     }
 }

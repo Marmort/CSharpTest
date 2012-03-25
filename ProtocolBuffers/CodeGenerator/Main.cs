@@ -10,7 +10,7 @@ namespace ProtocolBuffers
         {
             if (args.Length != 3)
             {
-                Console.Error.WriteLine("Usage:\n\tCodeGenerator.exe <path-to.proto> <namespace> <output.cs>");
+                Console.Error.WriteLine("Usage:\tCodeGenerator.exe <path-to.proto> <namespace> <output.cs>");
                 return;
             }
 
@@ -27,7 +27,7 @@ namespace ProtocolBuffers
             Console.WriteLine("Parsing " + protoPath);
             Proto proto = ProtoParser.Parse(protoPath);
             if (proto == null)
-                return;
+            { return; }
             Console.WriteLine(proto);
 
             Console.WriteLine("Generating code");

@@ -25,7 +25,6 @@ namespace ProtocolBuffers
                     if (comment >= 0)
                         line = line.Substring(0, comment);
                     t += line + "\n";
-
                 }
             }
 
@@ -195,7 +194,6 @@ namespace ProtocolBuffers
                 if (tr.ReadNext() != ";")
                     throw new InvalidDataException("Expected: ;");
             }
-
         }
     }
 }
