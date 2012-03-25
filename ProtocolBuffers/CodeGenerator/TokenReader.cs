@@ -14,21 +14,9 @@ namespace ProtocolBuffers
             this.text = text;
         }
 
-        public string Parsed
-        {
-            get
-            {
-                return text.Substring(0, offset);
-            }
-        }
+        public string Parsed { get { return text.Substring(0, offset); } }
 
-        public string Next
-        {
-            get
-            {
-                return text.Substring(offset, 1);
-            }
-        }
+        public string Next { get { return text.Substring(offset, 1); } }
 
         int offset;
         private string GetChar()

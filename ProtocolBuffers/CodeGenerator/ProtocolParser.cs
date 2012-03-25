@@ -39,6 +39,7 @@ namespace ProtocolBuffers
         #endregion
 
         #region Integers and Float/Double
+
         #region Fixed Int
 
         /// <summary>
@@ -153,6 +154,7 @@ namespace ProtocolBuffers
         }
 
         #endregion
+
         #endregion
 
         #region Field Key
@@ -398,16 +400,8 @@ namespace ProtocolBuffers
 
     public class Key
     {
-        public uint Field
-        {
-            get;
-            set;
-        }
-        public Wire WireType
-        {
-            get;
-            set;
-        }
+        public uint Field { get; set; }
+        public Wire WireType { get; set; }            
 
         public Key(uint field, Wire wireType)
         {

@@ -9,7 +9,6 @@ namespace ProtocolBuffers
         public static Proto Parse(string path)
         {
             Proto p = new Proto();
-
             string t = "";
 
             using (TextReader reader = new StreamReader(path, Encoding.UTF8))
