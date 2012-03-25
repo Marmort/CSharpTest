@@ -1,18 +1,25 @@
+﻿2
+413
+414
+415
+
+	
+
 ﻿using System;
 using System.Text;
 using System.IO;
 
 namespace ProtocolBuffers
 {
-    //	This file contain references on how to write and read
+    // This file contain references on how to write and read
     public enum Wire
     {
-        Varint = 0,		//int32, int64, uint32, uint64, sint32, sint64, bool, enum
-        Fixed64 = 1,	//fixed64, sfixed64, double
-        LengthDelimited = 2,	//string, bytes, embedded messages, packed repeated fields
-        //Start = 3, 		//	groups (deprecated)
-        //End = 4,		//	groups (deprecated)
-        Fixed32 = 5,	//32-bit	fixed32, sfixed32, float
+        Varint = 0, //int32, int64, uint32, uint64, sint32, sint64, bool, enum
+        Fixed64 = 1, //fixed64, sfixed64, double
+        LengthDelimited = 2, //string, bytes, embedded messages, packed repeated fields
+        //Start = 3, // groups (deprecated)
+        //End = 4, // groups (deprecated)
+        Fixed32 = 5, //32-bit fixed32, sfixed32, float
     }
 
     public class Key
@@ -56,7 +63,7 @@ namespace ProtocolBuffers
         {
             WriteUInt32(stream, (uint)val.Length);
             stream.Write(val, 0, val.Length);
-        }		
+        }
         #endregion
 
         #region fixed integers and float/double
@@ -65,7 +72,7 @@ namespace ProtocolBuffers
         /// <summary>
         /// Only for reference
         /// </summary>
-        [Obsolete("Only for reference")]
+[Obsolete("Only for reference")]
         public static ulong ReadFixed64(BinaryReader reader)
         {
             return reader.ReadUInt64();
@@ -74,7 +81,7 @@ namespace ProtocolBuffers
         /// <summary>
         /// Only for reference
         /// </summary>
-        [Obsolete("Only for reference")]
+[Obsolete("Only for reference")]
         public static long ReadSFixed64(BinaryReader reader)
         {
             return reader.ReadInt64();
@@ -82,7 +89,7 @@ namespace ProtocolBuffers
         /// <summary>
         /// Only for reference
         /// </summary>
-        [Obsolete("Only for reference")]
+[Obsolete("Only for reference")]
         public static uint ReadFixed32(BinaryReader reader)
         {
             return reader.ReadUInt32();
@@ -91,7 +98,7 @@ namespace ProtocolBuffers
         /// <summary>
         /// Only for reference
         /// </summary>
-        [Obsolete("Only for reference")]
+[Obsolete("Only for reference")]
         public static int ReadSFixed32(BinaryReader reader)
         {
             return reader.ReadInt32();
@@ -100,7 +107,7 @@ namespace ProtocolBuffers
         /// <summary>
         /// Only for reference
         /// </summary>
-        [Obsolete("Only for reference")]
+[Obsolete("Only for reference")]
         public static void WriteFixed64(BinaryWriter writer, ulong val)
         {
             writer.Write(val);
@@ -109,7 +116,7 @@ namespace ProtocolBuffers
         /// <summary>
         /// Only for reference
         /// </summary>
-        [Obsolete("Only for reference")]
+[Obsolete("Only for reference")]
         public static void WriteSFixed64(BinaryWriter writer, long val)
         {
             writer.Write(val);
@@ -118,7 +125,7 @@ namespace ProtocolBuffers
         /// <summary>
         /// Only for reference
         /// </summary>
-        [Obsolete("Only for reference")]
+[Obsolete("Only for reference")]
         public static void WriteFixed32(BinaryWriter writer, uint val)
         {
             writer.Write(val);
@@ -127,7 +134,7 @@ namespace ProtocolBuffers
         /// <summary>
         /// Only for reference
         /// </summary>
-        [Obsolete("Only for reference")]
+[Obsolete("Only for reference")]
         public static void WriteSFixed32(BinaryWriter writer, int val)
         {
             writer.Write(val);
@@ -140,7 +147,7 @@ namespace ProtocolBuffers
         /// <summary>
         /// Only for reference
         /// </summary>
-        [Obsolete("Only for reference")]
+[Obsolete("Only for reference")]
         public static float ReadFloat(BinaryReader reader)
         {
             return reader.ReadSingle();
@@ -149,7 +156,7 @@ namespace ProtocolBuffers
         /// <summary>
         /// Only for reference
         /// </summary>
-        [Obsolete("Only for reference")]
+[Obsolete("Only for reference")]
         public static double ReadDouble(BinaryReader reader)
         {
             return reader.ReadDouble();
@@ -158,7 +165,7 @@ namespace ProtocolBuffers
         /// <summary>
         /// Only for reference
         /// </summary>
-        [Obsolete("Only for reference")]
+[Obsolete("Only for reference")]
         public static void WriteFloat(BinaryWriter writer, float val)
         {
             writer.Write(val);
@@ -167,7 +174,7 @@ namespace ProtocolBuffers
         /// <summary>
         /// Only for reference
         /// </summary>
-        [Obsolete("Only for reference")]
+[Obsolete("Only for reference")]
         public static void WriteDouble(BinaryWriter writer, double val)
         {
             writer.Write(val);
@@ -228,7 +235,7 @@ namespace ProtocolBuffers
 
         #region VarInt: int32, uint32, sint32
 
-        [Obsolete("Use (int)ReadUInt32 (stream);")]
+[Obsolete("Use (int)ReadUInt32 (stream);")]
         /// <summary>
         /// Since the int32 format is inefficient for negative numbers we have avoided to imlplement.
         /// The same functionality can be achieved using: (int)ReadUInt32 (stream);
@@ -238,7 +245,7 @@ namespace ProtocolBuffers
             throw new NotImplementedException("Use (int)ReadUInt32 (stream);");
         }
 
-        [Obsolete("Use WriteUInt32 (stream, (uint)val);")]
+[Obsolete("Use WriteUInt32 (stream, (uint)val);")]
         /// <summary>
         /// Since the int32 format is inefficient for negative numbers we have avoided to imlplement.
         /// The same functionality can be achieved using: WriteUInt32 (stream, (uint)val);
@@ -310,7 +317,7 @@ namespace ProtocolBuffers
 
         #region VarInt: int64, uint64, sint64
 
-        [Obsolete("Use (long)ReadUInt64 (stream); instead")]
+[Obsolete("Use (long)ReadUInt64 (stream); instead")]
         /// <summary>
         /// Since the int64 format is inefficient for negative numbers we have avoided to implement it.
         /// The same functionality can be achieved using: (long)ReadUInt64 (stream);
@@ -320,7 +327,7 @@ namespace ProtocolBuffers
             throw new NotImplementedException("Use (int)ReadUInt64 (stream); instead");
         }
 
-        [Obsolete("Use WriteUInt64 (stream, (ulong)val); instead")]
+[Obsolete("Use WriteUInt64 (stream, (ulong)val); instead")]
         /// <summary>
         /// Since the int64 format is inefficient for negative numbers we have avoided to implement.
         /// The same functionality can be achieved using: WriteUInt64 (stream, (ulong)val);
@@ -410,6 +417,6 @@ namespace ProtocolBuffers
         }
 
         #endregion
-        #endregion      
+        #endregion
     }
 }
