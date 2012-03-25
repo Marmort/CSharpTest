@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{F085A74B-8FA7-4658-9B7B-49B016E0DE8E}</ProjectGuid>
+    <ProjectGuid>{848EDA59-36D4-49CF-839C-C1EC137C0EA4}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ProtocolBuffers</RootNamespace>
-    <AssemblyName>ProtoBuf</AssemblyName>
+    <RootNamespace>CodeGenerator</RootNamespace>
+    <AssemblyName>CodeGenerator</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -43,17 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CodeGenerator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Proto.cs" />
-    <Compile Include="ProtocolParser.cs" />
-    <Compile Include="ProtocolParserFixed.cs" />
-    <Compile Include="ProtocolParserKey.cs" />
-    <Compile Include="ProtocolParserVarInt.cs" />
-    <Compile Include="ProtoParser.cs" />
-    <Compile Include="ProtoPrepare.cs" />
-    <Compile Include="TokenReader.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
