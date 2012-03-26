@@ -62,10 +62,18 @@ namespace ProtocolBuffers
                 {
                     return;
                 }
-                if (token == "message")
-                    ParseMessage(tr, p);
-                else
-                    throw new InvalidDataException("Expected: message");
+                switch (token)
+                {
+                    case "message":
+                        ParseMessage(tr, p);
+                        break;
+                    case "option":
+                        //Ignore options
+                        ParseOption(tr);
+                        break;
+                    default:
+                        throw new InvalidDataException("Expected: message or option");
+                }
             }
         }
 
@@ -98,7 +106,6 @@ namespace ProtocolBuffers
             }
 
             Field f = new Field();
-            m.Fields.Add(f);
 
             //Rule
             if (rule == "required")
@@ -107,8 +114,16 @@ namespace ProtocolBuffers
                 f.Rule = Rules.Optional;
             else if (rule == "repeated")
                 f.Rule = Rules.Repeated;
+            else if (rule == "option")
+            {
+                //Ignore options
+                ParseOption(tr);
+                return true;
+            }
             else
                 throw new InvalidDataException("unknown rule: " + rule);
+
+            m.Fields.Add(f);
 
             //Type
             f.ProtoTypeName = tr.ReadNext();
@@ -153,7 +168,8 @@ namespace ProtocolBuffers
                         f.Deprecated = Boolean.Parse(value);
                         break;
                     default:
-                        throw new NotImplementedException("Unknown field option: " + option);
+                        //Ignore unknown options
+                        break;
                 }
                 string optionSep = tr.ReadNext();
                 if (optionSep == "]")
@@ -166,6 +182,18 @@ namespace ProtocolBuffers
                 throw new InvalidDataException("Expected: ;");
 
             return true;
+        }
+
+        static void ParseOption(TokenReader tr)
+        {
+            //Read name
+            tr.ReadNext();
+            if (tr.ReadNext() != "=")
+                throw new InvalidDataException("Expected: =");
+            //Read value
+            tr.ReadNext();
+            if (tr.ReadNext() != ";")
+                throw new InvalidDataException("Expected: ;");
         }
 
         static MessageEnum ParseEnum(TokenReader tr)
@@ -182,6 +210,13 @@ namespace ProtocolBuffers
 
                 if (name == "}")
                     return me;
+
+                //Ignore options
+                if (name == "option")
+                {
+                    ParseOption(tr);
+                    continue;
+                }
 
                 if (tr.ReadNext() != "=")
                     throw new InvalidDataException("Expected: =");
