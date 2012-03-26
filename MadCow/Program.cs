@@ -17,28 +17,25 @@
 *********************************************************************/
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
 
 namespace MadCow
 {
     class Program
     {
-        //Global used variables.
+        // 全局变量
         public static String programPath = System.IO.Directory.GetCurrentDirectory();
         public static String lastRevision = ParseRevision.GetRevision();
         public static String desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
         
         static void Main(string[] args)
         {
-            Console.Title = "MadCow Wrapper/Compiler for Mooege (By Wesko)";
+            Console.Title = "MadCow - Mooege的编译器 (作者 Wesko)";
             Console.ForegroundColor = ConsoleColor.White;
-
+            
             if (Directory.Exists(programPath + "/mooege-mooege-" + lastRevision))
             {
-                Console.WriteLine("You have latest Mooege revision: " + lastRevision);
+                Console.WriteLine("你有最新的Mooege版本：" + lastRevision);
             }
             else
             {
@@ -57,16 +54,17 @@ namespace MadCow
                 else
                     System.Diagnostics.Process.Start(Program.programPath + "\\Tools\\ShortcutCreator.vbs");
             }
-
+            
             if (Directory.Exists(programPath + "/MPQ"))
             {
-                Console.WriteLine("Found default MadCow MPQ folder");
+                Console.WriteLine("发现MadCow默认文件夹MPQ，路径：");
+                Console.WriteLine(programPath.ToString() + "\\MPQ");
             }
             else
             {
-                Console.WriteLine("Creating MadCow MPQ folder...");
+                Console.WriteLine("创建MadCow MPQ文件夹......");
                 Directory.CreateDirectory(programPath + "/MPQ");
-                Console.WriteLine("Creating MadCow MPQ folder Complete");
+                Console.WriteLine("创建MadCow MPQ文件夹完成");
                 MPQprocedure.MpqTransfer();
             }
 

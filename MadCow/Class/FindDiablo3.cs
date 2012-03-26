@@ -17,9 +17,6 @@
 *********************************************************************/
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Microsoft.Win32;
 
 
@@ -29,7 +26,7 @@ namespace MadCow
     {
         public static String FindDiabloLocation()
         {
-            RegistryKey d3Path = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\");
+            RegistryKey d3Path = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\");
             String[] nameList = d3Path.GetSubKeyNames();
             for (int i = 0; i < nameList.Length; i++)
             {
@@ -38,14 +35,12 @@ namespace MadCow
                 {
                     if (regKey.GetValue("DisplayName").ToString() == "Diablo III Beta")
                     {
-                        //Console.WriteLine("Found Diablo III Install Path");
                         return regKey.GetValue("InstallLocation").ToString();
                     }
                 }
                 catch {}
             }
-            Console.WriteLine("Couldn't Find Diablo 3 Installation."
-                +"\nPlease install Diablo III and try running MadCow again.");
+            Console.WriteLine("暗黑3未安装" + "\n请安装Diablo III Beta再运行MadCow程序");
             Console.ReadLine();
             Environment.Exit(0);
             return "";

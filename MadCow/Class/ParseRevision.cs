@@ -17,9 +17,6 @@
 *********************************************************************/
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Net;
 
 
@@ -42,9 +39,9 @@ namespace MadCow
                 Console.WriteLine(webEx.ToString());
                 if (webEx.Status == WebExceptionStatus.ConnectFailure)
                 {
-                    Console.WriteLine("Error: Couldn't retrieve latest source");
+                    Console.WriteLine("错误：无法获取最新的来源");
                 }
-                return "Fatal Exception";
+                return "致命异常";
             }
         }
     }

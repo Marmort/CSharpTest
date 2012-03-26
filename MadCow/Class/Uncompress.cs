@@ -18,8 +18,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
 using System.IO.Compression;
 
@@ -35,17 +33,17 @@ namespace MadCow
                 {
                     List<ZipStorer.ZipFileEntry> dir = zip.ReadCentralDir();
 
-                    Console.WriteLine("Uncompressing Mooege Source...");
+                    Console.WriteLine("解压缩 Mooege源代码......");
                     foreach (ZipStorer.ZipFileEntry entry in dir)
                     {
                         zip.ExtractFile(entry, Program.programPath + "/" + entry);
                     }
-                    Console.WriteLine("Uncompressing Mooege Source Complete");
+                    Console.WriteLine("解压缩 Mooege源代码完成");
                 }
             }
             catch
             {
-                Console.WriteLine("Unable to uncompress Mooege source");
+                Console.WriteLine("无法解压缩 Mooege源代码");
             }
         }
     }

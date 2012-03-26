@@ -16,11 +16,6 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *********************************************************************/
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.IO;
-using System.Reflection;
 using System.Runtime.InteropServices;
 
 namespace MadCow
@@ -31,27 +26,26 @@ namespace MadCow
         {
             //Boolean checkSqlite = LoadSQLLiteAssembly();
             String checkNet4 = Environment.Version.ToString();
-            
+
             /*if (checkSqlite == true)
             {
-                Console.WriteLine("Found System.Data.SQLite");
+                Console.WriteLine("发现： System.Data.SQLite");
             }
             else
             {
-                Console.WriteLine("System.Data.SQLite is missing!");
+                Console.WriteLine("不存在：System.Data.SQLite");
                 Console.Read();
                 Environment.Exit(0);
             }*/
 
             if (checkNet4.StartsWith("4"))
             {
-                Console.WriteLine("Found .NET Framework 4.0.30319.239");
+                Console.WriteLine("发现： .NET Framework 4.0.30319.239");
             }
 
             else
             {
-                Console.WriteLine("Please update .NET Framework to"
-                                 +" version 4!");
+                Console.WriteLine("请更新： .NET Framework to" +" version 4!");
                 Console.Read();
                 Environment.Exit(0);
             }
@@ -87,7 +81,7 @@ namespace MadCow
 
             IAssemblyCache assemblyCache;
 
-            // Get IAssemblyCache pointer
+            // 得到IAssemblyCache指针
             var hr = GacApi.CreateAssemblyCache(out assemblyCache, 0);
             if (hr == IntPtr.Zero)
             {

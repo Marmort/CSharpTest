@@ -17,9 +17,6 @@
 *********************************************************************/
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
 
 namespace MadCow
@@ -31,7 +28,7 @@ namespace MadCow
             String command = "";
             do
             {
-                Console.Write("Type command: ");
+                Console.Write("键入以！为前缀的命令>> ");
                 command = Console.ReadLine();
 
                 if (command == "!updatempq")
@@ -39,9 +36,9 @@ namespace MadCow
                     if (Directory.Exists(Program.programPath + "/MPQ"))
                     {
                         Directory.Delete(Program.programPath + "/MPQ", true);
-                        Console.WriteLine("Deleted current MPQ MadCow folder succeedeed");
+                        Console.WriteLine("删除当前 MPQ MadCow文件夹成功");
                         Directory.CreateDirectory(Program.programPath + "/MPQ");
-                        Console.WriteLine("Creating new MPQ MadCow folder succeedeed");
+                        Console.WriteLine("创建一个新的MPQ MadCow文件夹成功");
                         MPQprocedure.MpqTransfer();
                     }
                     else
@@ -54,7 +51,7 @@ namespace MadCow
                 if (command != "!updatempq" && command != "!update" && command != "!help" && command != "!autoupdate")
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Invalid command");
+                    Console.WriteLine("无效命令");
                     Console.ForegroundColor = ConsoleColor.White;
                 }
             } while (command != "!exit");

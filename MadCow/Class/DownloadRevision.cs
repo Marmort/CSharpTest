@@ -17,10 +17,6 @@
 *********************************************************************/
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Text;
 using System.Net;
 
 namespace MadCow
@@ -33,9 +29,9 @@ namespace MadCow
             {
                 WebClient client = new WebClient();
                 Uri uri = new Uri("https://github.com/mooege/mooege/zipball/master");
-                Console.WriteLine("Downloading latest Mooege revision [" + Program.lastRevision + "]...");
+                Console.WriteLine("下载Mooege最新版本 [" + Program.lastRevision + "]...");
                 client.DownloadFile(uri, Program.programPath + "/Mooege.zip");
-                Console.WriteLine("Downloading latest Mooege revision [" + Program.lastRevision + "] Complete");         
+                Console.WriteLine("下载Mooege最新版本 [" + Program.lastRevision + "] 完成");         
             }
 
             catch (WebException webEx)
@@ -43,7 +39,7 @@ namespace MadCow
                 Console.WriteLine(webEx.ToString());
                 if (webEx.Status == WebExceptionStatus.ConnectFailure)
                 {
-                    Console.WriteLine("Error: Connection Failure!");
+                    Console.WriteLine("错误：连接失败");
                 }
             }
         }

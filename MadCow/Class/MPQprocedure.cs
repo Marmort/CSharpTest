@@ -17,9 +17,6 @@
 *********************************************************************/
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
 
 namespace MadCow
@@ -28,13 +25,13 @@ namespace MadCow
     {
         public static void MpqTransfer()
         {
-            Console.WriteLine("Copying MPQ files to MadCow Folders...");
+            Console.WriteLine("复制MPQ文件到MadCow 文件夹......");
             String Src = FindDiablo3.FindDiabloLocation() + "\\Data_D3\\PC\\MPQs";
             String Dst = Program.programPath +"\\MPQ";
             copyDirectory(Src, Dst);
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("Process has been completed successfully");
-            Console.WriteLine("Check your desktop for Mooege shortcut.");
+            Console.WriteLine("过程已经成功完成");
+            Console.WriteLine("检查你的桌面为Mooege快捷键");
             Console.ForegroundColor = ConsoleColor.White;
         }
 
@@ -44,37 +41,33 @@ namespace MadCow
 
             if (Dst[Dst.Length - 1] != Path.DirectorySeparatorChar)
                 Dst += Path.DirectorySeparatorChar;
-            if (!Directory.Exists(Dst)) Directory.CreateDirectory(Dst);
+            if (!Directory.Exists(Dst)) 
+                Directory.CreateDirectory(Dst);
             Files = Directory.GetFileSystemEntries(Src);
             foreach (String Element in Files)
             {
-                // Sub directories
-
-                //Filter for non needed MPQ's
+                // 建立子目录， 如果不需要的MPQ's需要则不复制
                 if (Directory.Exists(Element) && Element.Contains("enUS") || Element.Contains("Cache") 
                     || Element.Contains("Win") || Element.Contains("enUS_Audio") 
                     || Element.Contains("enUS_Cutscene") || Element.Contains("enUS_Text") 
                     || Element.Contains("Sound") || Element.Contains("Texture")
-                    || Element.Contains("HLSLShaders"))
+                    || Element.Contains("HLSLShaders") || Element.Contains("patch"))
                 {
-                    Console.WriteLine("Skipped: " + Path.GetFileName(Element));
+                    Console.WriteLine("忽略： " + Path.GetFileName(Element));
                 }
-
-                //If not Filtered
                 else if (Directory.Exists(Element))
                 {
                     copyDirectory(Element, Dst + Path.GetFileName(Element));
-                    Console.WriteLine("Created Directory: " + Path.GetFileName(Element));
+                    Console.WriteLine("创建目录： " + Path.GetFileName(Element));
                 }
-                //Copy the files from not filtered folders
                 else
                 {
-                    Console.WriteLine("Copying: " + Path.GetFileName(Element) + "...");
+                    Console.WriteLine("复制：" + Path.GetFileName(Element) + "......");
                     File.Copy(Element, Dst + Path.GetFileName(Element), true);
-                    Console.WriteLine("Copying: " + Path.GetFileName(Element) + " Complete");
+                    Console.WriteLine("复制：" + Path.GetFileName(Element) + " 完成");
                 }
-
-            }   Console.WriteLine("Copying MPQ files to MadCow Folders has completed.");
+            } 
+            Console.WriteLine("复制MPQ文件到MadCow文件夹结束");
         }
     }
 }

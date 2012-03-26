@@ -17,9 +17,6 @@
 *********************************************************************/
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
 using Nini.Config;
 using System.Text.RegularExpressions;
@@ -38,8 +35,7 @@ namespace MadCow
         {
             try
             {
-                System.Diagnostics.ProcessStartInfo procStartInformation =
-                new System.Diagnostics.ProcessStartInfo("cmd", "/c" + command);
+                System.Diagnostics.ProcessStartInfo procStartInformation = new System.Diagnostics.ProcessStartInfo("cmd", "/c" + command);
             
                 procStartInformation.RedirectStandardOutput = false;
                 procStartInformation.UseShellExecute = true;
@@ -47,10 +43,10 @@ namespace MadCow
                 
                 System.Diagnostics.Process proc = new System.Diagnostics.Process();
                 proc.StartInfo = procStartInformation;
-                Console.WriteLine("Compiling newest Mooege source...");
+                Console.WriteLine("编译最新Mooege的源代码......");
                 proc.Start();
                 proc.WaitForExit();
-                Console.WriteLine("Compiling newest Mooege source Complete");
+                Console.WriteLine("编译最新Mooege的源代码完成");
             }
             catch (Exception objException)
             {
@@ -66,16 +62,16 @@ namespace MadCow
                 string fileName = source.Configs["Storage"].Get("MPQRoot");
                 if (fileName.Contains("${Root}"))
                 {
-                    Console.WriteLine("Modifying Mooege MPQ storage folder...");
+                    Console.WriteLine("修改Mooege MPQ存储文件夹......");
                     IConfig config = source.Configs["Storage"];
                     config.Set("MPQRoot", Program.programPath + @"\MPQ");
                     source.Save();
-                    Console.WriteLine("Modifying Mooege MPQ storage folder Complete");
+                    Console.WriteLine("修改Mooege MPQ存储文件夹完成");
                 }
             }
             catch (Exception)
             {
-                Console.WriteLine("ERROR");
+                Console.WriteLine("错误");
             }
         }
 
