@@ -37,14 +37,14 @@ namespace " + nameSpace + "\n{\n");
                 //Copy ProtocolParser files contents
                 string sourcePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
                 ReadCode(codeWriter, Path.Combine(sourcePath, "ProtocolParser.cs"));
-                ReadCode(codeWriter, Path.Combine(sourcePath, "ProtocolParserFixed.cs"));
-                ReadCode(codeWriter, Path.Combine(sourcePath, "ProtocolParserKey.cs"));
-                ReadCode(codeWriter, Path.Combine(sourcePath, "ProtocolParserVarInt.cs"));
+                //ReadCode(codeWriter, Path.Combine(sourcePath, "ProtocolParserFixed.cs"));
+                //ReadCode(codeWriter, Path.Combine(sourcePath, "ProtocolParserKey.cs"));
+                //ReadCode(codeWriter, Path.Combine(sourcePath, "ProtocolParserVarInt.cs"));
             }
         }
 
         /// <summary>
-        /// Read c# code from sourcePath and write it on code without the initial using statements.
+        /// Read C# code from sourcePath and write it on code without the initial using statements.
         /// </summary>
         private static void ReadCode(TextWriter code, string sourcePath)
         {
