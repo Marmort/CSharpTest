@@ -49,12 +49,12 @@ namespace MadCow
                 if (File.Exists(desktopPath + "\\Mooege.lnk"))
                 {
                     File.Delete(desktopPath + "\\Mooege.lnk");
-                    System.Diagnostics.Process.Start(Program.programPath + "\\Tools\\ShortcutCreator.vbs");
+                    System.Diagnostics.Process.Start(Program.programPath + ".\\..\\..\\Tools\\ShortcutCreator.vbs");
                 }
                 else
-                    System.Diagnostics.Process.Start(Program.programPath + "\\Tools\\ShortcutCreator.vbs");
+                    System.Diagnostics.Process.Start(Program.programPath + ".\\..\\..\\Tools\\ShortcutCreator.vbs");
             }
-            
+
             if (Directory.Exists(programPath + "/MPQ"))
             {
                 Console.WriteLine("发现MadCow默认文件夹MPQ，路径：");

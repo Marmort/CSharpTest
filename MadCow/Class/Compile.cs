@@ -77,7 +77,7 @@ namespace MadCow
 
         static public void WriteVbsPath()
         {
-            String vbsPath = (Program.programPath + "\\Tools\\ShortcutCreator.vbs");
+            String vbsPath = (Program.programPath + ".\\..\\..\\Tools\\ShortcutCreator.vbs");
             StreamReader reader = new StreamReader(vbsPath);
             string content = reader.ReadToEnd();
             reader.Close();
