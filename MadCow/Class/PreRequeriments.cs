@@ -41,13 +41,13 @@ namespace MadCow
             if (checkNet4.StartsWith("4"))
             {
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("发现： .NET Framework " + checkNet4);
+                Console.WriteLine("发现：.NET Framework " + checkNet4);
                 Console.ForegroundColor = ConsoleColor.White;
             }
 
             else
             {
-                Console.WriteLine("请更新： .NET Framework to" + " version 4!");
+                Console.WriteLine("请更新：.NET Framework to" + " version 4!");
                 Console.ReadKey();
                 Environment.Exit(0);
             }

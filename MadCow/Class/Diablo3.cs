@@ -31,30 +31,34 @@ namespace MadCow
         public static void FindDiablo3()
         {
             RegistryKey d3Path = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\");
-            String[] nameList = d3Path.GetSubKeyNames();
-            for (int i = 0; i < nameList.Length; i++)
-            {
-                RegistryKey regKey = d3Path.OpenSubKey(nameList[i]);
-                try
-                {
-                    if (regKey.GetValue("DisplayName").ToString() == "Diablo III Beta")
-                    {
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine("发现暗黑3安装路径");
-                        _d3loc = regKey.GetValue("InstallLocation").ToString();
-                        Console.ForegroundColor = ConsoleColor.White;
-                    }
-                }
-                catch 
-                {
-                    //the ball?
-                }               
-            }
-            if (_d3loc == "") //D3未发现
+
+            if (d3Path == null) //D3未发现
             {
                 Console.WriteLine("暗黑3未安装" + "\n请安装Diablo III Beta再运行MadCow程序");
                 Console.ReadKey();
                 Environment.Exit(0);
+            }
+            else
+            {
+                String[] nameList = d3Path.GetSubKeyNames();
+                for (int i = 0; i < nameList.Length; i++)
+                {
+                    RegistryKey regKey = d3Path.OpenSubKey(nameList[i]);
+                    try
+                    {
+                        if (regKey.GetValue("DisplayName").ToString() == "Diablo III Beta")
+                        {
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.WriteLine("发现暗黑3安装路径");
+                            _d3loc = regKey.GetValue("InstallLocation").ToString();
+                            Console.ForegroundColor = ConsoleColor.White;
+                        }
+                    }
+                    catch
+                    {
+                        //the ball?
+                    }
+                }
             }
         }
 
