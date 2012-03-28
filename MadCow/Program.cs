@@ -46,13 +46,6 @@ namespace MadCow
                 Compile.ExecuteCommandSync(Compile.msbuildPath + " " + Compile.compileArgs);
                 Compile.ModifyMooegeINI();
                 Compile.WriteVbsPath();
-                if (File.Exists(desktopPath + "\\Mooege.lnk"))
-                {
-                    File.Delete(desktopPath + "\\Mooege.lnk");
-                    System.Diagnostics.Process.Start(Program.programPath + ".\\..\\..\\Tools\\ShortcutCreator.vbs");
-                }
-                else
-                    System.Diagnostics.Process.Start(Program.programPath + ".\\..\\..\\Tools\\ShortcutCreator.vbs");
             }
 
             if (Directory.Exists(programPath + "/MPQ"))
@@ -65,6 +58,7 @@ namespace MadCow
                 Console.WriteLine("创建MadCow MPQ文件夹......");
                 Directory.CreateDirectory(programPath + "/MPQ");
                 Console.WriteLine("创建MadCow MPQ文件夹完成");
+                MPQprocedure.ValidateMD5();
                 MPQprocedure.MpqTransfer();
             }
 

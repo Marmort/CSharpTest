@@ -48,6 +48,42 @@ namespace MadCow
                     }
                 }
 
+                if (command == "!update")
+                {
+                    if (Directory.Exists(Program.programPath + "/mooege-mooege-" + Program.lastRevision))
+                    {
+                        Console.WriteLine("你有最新的Mooege版本：" + Program.lastRevision);
+                    }
+                    else
+                    {                        
+                        DownloadRevision.DownloadLatest();
+                        Uncompress.UncompressFiles();
+                        Compile.ExecuteCommandSync(Compile.msbuildPath + " " + Compile.compileArgs);
+                        Compile.ModifyMooegeINI();
+                        Compile.WriteVbsPath();
+                        if (File.Exists(Program.desktopPath + "\\Mooege.lnk"))
+                        {
+                            File.Delete(Program.desktopPath + "\\Mooege.lnk");
+                            System.Diagnostics.Process.Start(Program.programPath + "\\Tools\\ShortcutCreator.vbs");
+                        }
+                        else
+                            System.Diagnostics.Process.Start(Program.programPath + "\\Tools\\ShortcutCreator.vbs");
+                    }
+                }
+
+                if (command == "!autoupdate")
+                {
+                    //  TODO: Implement a timer which will check for Mooege updates.
+                    //  !autoupdate <minutes>
+                    Console.WriteLine("还没有实施");
+                }
+
+                if (command == "!help")
+                {
+                    Console.WriteLine("可用命令：" + "\n!update - 下载最新Mooege版本"
+                        + "\n!updatempq - 将更新MadCow MPQ文件夹" + "\n!autoupdate <minutes> - 循环定时器");
+                }
+
                 if (command != "!updatempq" && command != "!update" && command != "!help" && command != "!autoupdate")
                 {
                     Console.ForegroundColor = ConsoleColor.Red;

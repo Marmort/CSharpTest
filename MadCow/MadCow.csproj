@@ -60,6 +60,7 @@
     <Compile Include="Class\Uncompress.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tools\Md5Validate.cs" />
     <Compile Include="Tools\ZipStorer.cs" />
   </ItemGroup>
   <ItemGroup>

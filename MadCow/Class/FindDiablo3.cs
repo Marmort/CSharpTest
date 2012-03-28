@@ -41,7 +41,7 @@ namespace MadCow
                 catch {}
             }
             Console.WriteLine("暗黑3未安装" + "\n请安装Diablo III Beta再运行MadCow程序");
-            Console.ReadLine();
+            Console.ReadKey();
             Environment.Exit(0);
             return "";
         }

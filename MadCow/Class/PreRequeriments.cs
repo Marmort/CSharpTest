@@ -34,7 +34,7 @@ namespace MadCow
             else
             {
                 Console.WriteLine("不存在：System.Data.SQLite");
-                Console.Read();
+                Console.ReadKey();
                 Environment.Exit(0);
             }*/
 
@@ -46,7 +46,7 @@ namespace MadCow
             else
             {
                 Console.WriteLine("请更新： .NET Framework to" +" version 4!");
-                Console.Read();
+                Console.ReadKey();
                 Environment.Exit(0);
             }
         }

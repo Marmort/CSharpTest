@@ -77,7 +77,7 @@ namespace MadCow
 
         static public void WriteVbsPath()
         {
-            String vbsPath = (Program.programPath + ".\\..\\..\\Tools\\ShortcutCreator.vbs");
+            String vbsPath = (Program.programPath + "\\Tools\\ShortcutCreator.vbs");
             StreamReader reader = new StreamReader(vbsPath);
             string content = reader.ReadToEnd();
             reader.Close();
@@ -87,6 +87,15 @@ namespace MadCow
             StreamWriter writer = new StreamWriter(vbsPath);
             writer.Write(content);
             writer.Close();
+
+            //建立快捷键
+            if (File.Exists(Program.desktopPath + "\\Mooege.lnk"))
+            {
+                File.Delete(Program.desktopPath + "\\Mooege.lnk");
+                System.Diagnostics.Process.Start(Program.programPath + "\\Tools\\ShortcutCreator.vbs");
+            }
+            else
+                System.Diagnostics.Process.Start(Program.programPath + "\\Tools\\ShortcutCreator.vbs");
         }
     }
 }
