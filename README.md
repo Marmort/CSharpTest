@@ -4,13 +4,11 @@
 
 汉化作者：Henry Yang
 
-You will need Diablo III client installed on your computer in order for MadCow to work!!!!
-You will need Diablo III client installed on your computer in order for MadCow to work!!!!
-You will need Diablo III client installed on your computer in order for MadCow to work!!!!
+你需要在您的电脑安装暗黑3客户端然后运行MadCow程序
 
-1. Download MadCow Source.
-2. Uncompress over a short path folder (e.g C:\MadCow\).
-3. Open MadCow project solution file MadCow2011.sln.
-4. Run/Compile.
-5. MadCow will be placed over <Folder you extracted MadCow>\bin\Debug.
-6. Enjoy.
+1. 下载MadCow源代码
+2. 解压缩到一个短路径的文件夹中 (如：C:\MadCow\)
+3. 打开MadCow程序文件MadCowzh.sln
+4. 运行、编译
+5. MadCow将放置在<MadCow文件夹>\bin\Debug
+6. 享受...
