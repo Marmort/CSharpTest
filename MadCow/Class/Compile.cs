@@ -26,8 +26,9 @@ namespace MadCow
     class Compile
     {
         public static String currentMooegeExePath = Program.programPath + @"\mooege-mooege-" + Program.lastRevision + @"\src\Mooege\bin\Debug\Mooege.exe";
-        public static String currentMooegeDebudFolderPath = Program.programPath + @"\mooege-mooege-" + Program.lastRevision + @"\src\Mooege\bin\Debug\";
+        public static String currentMooegeDebugFolderPath = Program.programPath + @"\mooege-mooege-" + Program.lastRevision + @"\src\Mooege\bin\Debug\";
         public static String mooegeINI = Program.programPath + @"\mooege-mooege-" + Program.lastRevision + @"\src\Mooege\bin\Debug\config.ini";
+        public static String madcowINI = Program.programPath + @"\Tools\\Settings.ini";
         public static String compileArgs = Program.programPath + @"\mooege-mooege-" + Program.lastRevision + @"\build\Mooege-VS2010.sln";
         public static String msbuildPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.System) + @"\..\Microsoft.NET\Framework\v4.0.30319\msbuild.exe";
 
@@ -50,31 +51,9 @@ namespace MadCow
                 Console.WriteLine("编译最新Mooege的源代码完成");
                 Console.ForegroundColor = ConsoleColor.White;
             }
-            catch (Exception objException)
+            catch (Exception e)
             {
-                Console.WriteLine(objException);
-            }
-        }
-
-        public static void ModifyMooegeINI()
-        {
-            try
-            {
-                IConfigSource source = new IniConfigSource(Compile.mooegeINI);
-                string fileName = source.Configs["Storage"].Get("MPQRoot");
-                if (fileName.Contains("${Root}"))
-                {
-                    Console.WriteLine("修改Mooege MPQ存储文件夹......");
-                    IConfig config = source.Configs["Storage"];
-                    config.Set("MPQRoot", Program.programPath + @"\MPQ");
-                    source.Save();
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("修改Mooege MPQ存储文件夹完成");
-                    Console.ForegroundColor = ConsoleColor.White;
-                }
-            }
-            catch (Exception)
-            {
+                Console.WriteLine(e);
                 Console.ForegroundColor = ConsoleColor.Red;
                 //The problem is, while passing args to ExecuteCommandSync(String command)
                 //If the argument its too long due to the current mooege folder path (Program.programPath)
@@ -88,6 +67,40 @@ namespace MadCow
             }
         }
 
+        public static void ModifyMooegeINI()
+        {
+            try
+            {
+                IConfigSource source = new IniConfigSource(Compile.mooegeINI);
+                string fileName = source.Configs["Storage"].Get("MPQRoot");
+                if (fileName.Contains("${Root}"))
+                {
+                    Console.WriteLine("修改Mooege MPQ存储文件夹......");
+                    IConfig config = source.Configs["Storage"];
+                    config.Set("MPQRoot", Program.programPath + "\\MPQ");
+                    source.Save();
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("修改Mooege MPQ存储文件夹完成");
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
+                //Then we create the MPQ folder in MadCow Root Folder.
+                if (Directory.Exists(Program.programPath + "\\MPQ"))
+                {
+                    Directory.Delete(Program.programPath + "\\MPQ", true);
+                    Console.WriteLine("删除当前MPQ MadCow文件夹成功");
+                    Directory.CreateDirectory(Program.programPath + "\\MPQ");
+                    Console.WriteLine("创建新MPQ MadCow文件夹成功");
+                }
+            }
+            catch (Exception e)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("不能修改Mooege INI文件");
+                Console.WriteLine(e);
+                Console.ForegroundColor = ConsoleColor.White;                
+            }
+        }
+
         static public void WriteVbsPath()
         {
             String vbsPath = (Program.programPath + "\\Tools\\ShortcutCreator.vbs");
@@ -96,7 +109,7 @@ namespace MadCow
             reader.Close();
  
             content = Regex.Replace(content, "MODIFY", Compile.currentMooegeExePath);
-            content = Regex.Replace(content, "WESKO", Compile.currentMooegeDebudFolderPath);
+            content = Regex.Replace(content, "WESKO", Compile.currentMooegeDebugFolderPath);
             StreamWriter writer = new StreamWriter(vbsPath);
             writer.Write(content);
             writer.Close();

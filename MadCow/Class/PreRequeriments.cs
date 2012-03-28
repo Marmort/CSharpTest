@@ -17,11 +17,54 @@
 *********************************************************************/
 using System;
 using System.Runtime.InteropServices;
+using Nini.Config;
 
 namespace MadCow
 {
     class PreRequeriments
     {
+        public static void FirstRunConfiguration()
+        {
+            IConfigSource iniSource = new IniConfigSource(Compile.madcowINI);
+            string getValues = iniSource.Configs["Settings"].Get("firstrun");
+            IConfig config = iniSource.Configs["Settings"];
+
+            if (getValues.Contains("0"))
+            {
+                Console.WriteLine("你有暗黑3安装在这台电脑吗? (yes/no)");
+                string input = Console.ReadLine();
+                switch (input.ToLower())
+                {
+                    case "yes":
+                            config.Set("d3installed", 1);
+                            config.Set("firstrun", 1);
+                            iniSource.Save();
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.WriteLine("保持第一次运行配置文件完成");
+                            Console.ForegroundColor = ConsoleColor.White;
+                        MadCowRunProcedure.RunMadCow(1); //运行D3安装模式
+                        break;
+                    case "no":
+                        config.Set("firstrun", 1);
+                        iniSource.Save();
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine("保持第一次运行配置文件完成");
+                        Console.ForegroundColor = ConsoleColor.White;
+                        MadCowRunProcedure.RunMadCow(0); //没有D3运行安装模式
+                        break;
+                    default:
+                        Console.WriteLine("选择 yes 或 no");
+                        break;
+                }
+            }
+            else
+            {
+                string D3InstallStatus = iniSource.Configs["Settings"].Get("firstrun");
+                int StatusValue = Convert.ToInt32(D3InstallStatus);
+                MadCowRunProcedure.RunMadCow(StatusValue);
+            }
+        }
+
         public static void CheckPrerequeriments()
         {
             //Boolean checkSqlite = LoadSQLLiteAssembly();

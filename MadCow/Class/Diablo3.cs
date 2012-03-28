@@ -34,6 +34,7 @@ namespace MadCow
 
             if (d3Path == null) //D3未发现
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("暗黑3未安装" + "\n请安装Diablo III Beta再运行MadCow程序");
                 Console.ReadKey();
                 Environment.Exit(0);

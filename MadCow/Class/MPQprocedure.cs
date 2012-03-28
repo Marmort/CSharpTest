@@ -96,8 +96,6 @@ namespace MadCow
                 //当所有的文件已经复制即可
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("复制MPQ过程已经完成");
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("检查你电脑桌面的Mooege快捷键");
                 Console.ForegroundColor = ConsoleColor.White;
             }        
         }

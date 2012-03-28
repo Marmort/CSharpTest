@@ -39,17 +39,7 @@ namespace MadCow
             }
             else
             {
-                PreRequeriments.CheckPrerequeriments();
-                Diablo3.FindDiablo3();
-                Diablo3.VerifyVersion();
-                DownloadRevision.DownloadLatest();
-                Uncompress.UncompressFiles();
-                Compile.ExecuteCommandSync(Compile.msbuildPath + " " + Compile.compileArgs);
-                Compile.ModifyMooegeINI();
-                Compile.WriteVbsPath();
-            
-                MPQprocedure.ValidateMD5();
-                MPQprocedure.MpqTransfer();
+                PreRequeriments.FirstRunConfiguration();       
             }
 
             Commands.CommandReader();

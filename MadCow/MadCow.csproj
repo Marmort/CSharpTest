@@ -54,6 +54,7 @@
     <Compile Include="Class\Compile.cs" />
     <Compile Include="Class\DownloadRevision.cs" />
     <Compile Include="Class\Diablo3.cs" />
+    <Compile Include="Class\MadCowRunProcedure.cs" />
     <Compile Include="Class\MPQprocedure.cs" />
     <Compile Include="Class\ParseRevision.cs" />
     <Compile Include="Class\PreRequeriments.cs" />
@@ -71,6 +72,7 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="dep\nini\Nini.Licence" />
+    <None Include="Tools\Settings.ini" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
