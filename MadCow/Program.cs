@@ -50,8 +50,7 @@ namespace MadCow
 
             if (Directory.Exists(programPath + "/MPQ"))
             {
-                Console.WriteLine("发现MadCow默认文件夹MPQ，路径：");
-                Console.WriteLine(programPath.ToString() + "\\MPQ");
+                Console.WriteLine("发现MadCow默认文件夹MPQ");
             }
             else
             {
