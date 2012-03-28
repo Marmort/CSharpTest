@@ -19,6 +19,7 @@
 using System;
 using System.Net;
 
+
 namespace MadCow
 {
     class DownloadRevision
@@ -31,7 +32,9 @@ namespace MadCow
                 Uri uri = new Uri("https://github.com/mooege/mooege/zipball/master");
                 Console.WriteLine("下载Mooege最新版本 [" + Program.lastRevision + "]...");
                 client.DownloadFile(uri, Program.programPath + "/Mooege.zip");
-                Console.WriteLine("下载Mooege最新版本 [" + Program.lastRevision + "] 完成");         
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("下载Mooege最新版本 [" + Program.lastRevision + "] 完成");
+                Console.ForegroundColor = ConsoleColor.White;
             }
 
             catch (WebException webEx)

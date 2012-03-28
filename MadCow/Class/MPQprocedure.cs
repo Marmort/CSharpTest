@@ -26,21 +26,21 @@ namespace MadCow
     class MPQprocedure
     {
         //目录\base\ 下的文件 MD5's.
-        public static String[] MD5ValidPool = {"39765d908accf4f37a4c2dfa99b8cd52"//7170
-                                                                   ,"7148ee45696c84796f3ca16729b9aadc"   //7200
-                                                                   ,"7ee326516f3da2c8f8b80eba6199deef"   //7318
-                                                                   ,"68c43ae976872a1fa7f5a929b7f21b58"   //7338
-                                                                   ,"751b8bf5c84220688048c192ab23f380"   //7447
-                                                                   ,"d5eba8a2324cdc815b2cd5b92104b7fa"   //7728
-                                                                   ,"5eb4983d4530e3b8bab0d6415d8251fa"   //7841
-                                                                   ,"3faf4efa2a96d501c9c47746cba5a7ad"}; //7841
+        public static String[] MD5ValidPool = {"39765d908accf4f37a4c2dfa99b8cd52"   //7170
+                                                                   ,"7148ee45696c84796f3ca16729b9aadc"  //7200
+                                                                   ,"7ee326516f3da2c8f8b80eba6199deef"  //7318
+                                                                   ,"68c43ae976872a1fa7f5a929b7f21b58"  //7338
+                                                                   ,"751b8bf5c84220688048c192ab23f380"  //7447
+                                                                   ,"d5eba8a2324cdc815b2cd5b92104b7fa"  //7728
+                                                                   ,"5eb4983d4530e3b8bab0d6415d8251fa"  //7841
+                                                                   ,"3faf4efa2a96d501c9c47746cba5a7ad"};    //7841
 
         public static void ValidateMD5()
         {
             DateTime startTime = DateTime.Now;
-            String src = FindDiablo3.FindDiabloLocation() + "\\Data_D3\\PC\\MPQs\\base";
-            String[] filePaths = Directory.GetFiles(src, "*.*", SearchOption.TopDirectoryOnly);
-            int fileCount = Directory.GetFiles(src, "*.*", SearchOption.TopDirectoryOnly).Length;
+            String baseFolderPath = Diablo3._d3loc + "\\Data_D3\\PC\\MPQs\\base";
+            String[] filePaths = Directory.GetFiles(baseFolderPath, "*.*", SearchOption.TopDirectoryOnly);
+            int fileCount = Directory.GetFiles(baseFolderPath, "*.*", SearchOption.TopDirectoryOnly).Length;
             int trueCounter = 0;
 
             Parallel.ForEach(filePaths, dir =>
@@ -74,14 +74,32 @@ namespace MadCow
 
         public static void MpqTransfer()
         {
-            Console.WriteLine("复制MPQ文件到MadCow 文件夹......");
-            String Src = FindDiablo3.FindDiabloLocation() + "\\Data_D3\\PC\\MPQs";
-            String Dst = Program.programPath +"\\MPQ";
-            copyDirectory(Src, Dst);
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("复制过程已经完成");
-            Console.WriteLine("检查你的桌面的Mooege快捷键");
-            Console.ForegroundColor = ConsoleColor.White;
+            String Src = Diablo3._d3loc + "\\Data_D3\\PC\\MPQs";
+            String Dst = Program.programPath + "\\MPQ";
+
+            if (Directory.Exists(Program.programPath + "/MPQ")) //检查MPQ文件夹
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("发现MadCow MPQ默认文件夹");
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+            else //如果没发现,创造和进行复制
+            {
+                Console.WriteLine("创建MadCow MPQ文件夹......");
+                Directory.CreateDirectory(Program.programPath + "/MPQ");
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("创建MadCow MPQ文件夹完成");
+                Console.ForegroundColor = ConsoleColor.White;
+                //开始拷贝数据
+                Console.WriteLine("复制MPQ文件到MadCow文件夹......");                
+                copyDirectory(Src, Dst);
+                //当所有的文件已经复制即可
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("复制MPQ过程已经完成");
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("检查你电脑桌面的Mooege快捷键");
+                Console.ForegroundColor = ConsoleColor.White;
+            }        
         }
 
         private static void copyDirectory(String Src, String Dst)
@@ -102,21 +120,23 @@ namespace MadCow
                     || Element.Contains("Sound") || Element.Contains("Texture")
                     || Element.Contains("HLSLShaders"))
                 {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.WriteLine("忽略： " + Path.GetFileName(Element));
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
                 else if (Directory.Exists(Element))
                 {
-                    copyDirectory(Element, Dst + Path.GetFileName(Element));
-                    Console.WriteLine("创建目录： " + Path.GetFileName(Element));
+                    copyDirectory(Element, Dst + Path.GetFileName(Element));                    
                 }
                 else
                 {
                     Console.WriteLine("复制：" + Path.GetFileName(Element) + "......");
                     File.Copy(Element, Dst + Path.GetFileName(Element), true);
+                    Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("复制：" + Path.GetFileName(Element) + " 完成");
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
-            } 
-            Console.WriteLine("复制MPQ文件到MadCow文件夹结束");
+            }
         }
     }
 }

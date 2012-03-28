@@ -53,7 +53,7 @@
     <Compile Include="Class\Commands.cs" />
     <Compile Include="Class\Compile.cs" />
     <Compile Include="Class\DownloadRevision.cs" />
-    <Compile Include="Class\FindDiablo3.cs" />
+    <Compile Include="Class\Diablo3.cs" />
     <Compile Include="Class\MPQprocedure.cs" />
     <Compile Include="Class\ParseRevision.cs" />
     <Compile Include="Class\PreRequeriments.cs" />

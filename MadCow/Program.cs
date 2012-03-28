@@ -39,24 +39,15 @@ namespace MadCow
             }
             else
             {
-                FindDiablo3.FindDiabloLocation();
                 PreRequeriments.CheckPrerequeriments();
+                Diablo3.FindDiablo3();
+                Diablo3.VerifyVersion();
                 DownloadRevision.DownloadLatest();
                 Uncompress.UncompressFiles();
                 Compile.ExecuteCommandSync(Compile.msbuildPath + " " + Compile.compileArgs);
                 Compile.ModifyMooegeINI();
                 Compile.WriteVbsPath();
-            }
-
-            if (Directory.Exists(programPath + "/MPQ"))
-            {
-                Console.WriteLine("发现MadCow默认文件夹MPQ");
-            }
-            else
-            {
-                Console.WriteLine("创建MadCow MPQ文件夹......");
-                Directory.CreateDirectory(programPath + "/MPQ");
-                Console.WriteLine("创建MadCow MPQ文件夹完成");
+            
                 MPQprocedure.ValidateMD5();
                 MPQprocedure.MpqTransfer();
             }

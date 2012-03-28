@@ -39,9 +39,10 @@ namespace MadCow
                 Console.WriteLine(webEx.ToString());
                 if (webEx.Status == WebExceptionStatus.ConnectFailure)
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("错误：无法获取最新的来源");
                 }
-                return "致命异常";
+                return "Fatal Exception";
             }
         }
     }

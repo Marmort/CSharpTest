@@ -46,7 +46,9 @@ namespace MadCow
                 Console.WriteLine("编译最新Mooege的源代码......");
                 proc.Start();
                 proc.WaitForExit();
+                Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("编译最新Mooege的源代码完成");
+                Console.ForegroundColor = ConsoleColor.White;
             }
             catch (Exception objException)
             {
@@ -66,12 +68,23 @@ namespace MadCow
                     IConfig config = source.Configs["Storage"];
                     config.Set("MPQRoot", Program.programPath + @"\MPQ");
                     source.Save();
+                    Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("修改Mooege MPQ存储文件夹完成");
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
             }
             catch (Exception)
             {
-                Console.WriteLine("错误");
+                Console.ForegroundColor = ConsoleColor.Red;
+                //The problem is, while passing args to ExecuteCommandSync(String command)
+                //If the argument its too long due to the current mooege folder path (Program.programPath)
+                //msbuild.exe won't be able to recieve the complete arguments and compiling will fail.
+                Console.WriteLine("\n长路径错误：不能编译Mooege来源，"
+                                  + "\n请使用较短的文件夹的路径移动MadCow文件到（例如： C:/MadCow/）");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine("\n按任意键退出......");
+                Console.ReadKey();
+                Environment.Exit(0);
             }
         }
 
