@@ -13,10 +13,16 @@ namespace ExcelTest
 
         static void Main(string[] args)
         {
-            InitializeExcel.InstallExcel();            
+            ExcelClass.PreRequeriments.CheckPrerequeriments();
+            ExcelClass.OperateCode op = new ExcelClass.OperateCode();                 
             string names = programPath + "\\aaa.xlsx";
-            Console.WriteLine(names);
-            InitializeExcel.OpenExcel(names);
+
+            //op.Create(); 
+            op.Open(names);
+            op.GetSheetsName();
+            op.AddSheet("names");
+            op.GetSheetsName();
+            op.Close();
             Console.ReadKey();
         }
     }
