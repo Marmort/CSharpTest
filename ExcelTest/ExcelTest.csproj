@@ -58,7 +58,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LibClass\OperateCode.cs" />
+    <Compile Include="LibClass\OperateBook.cs" />
+    <Compile Include="LibClass\OperateSheet.cs" />
     <Compile Include="LibClass\PreRequeriments.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

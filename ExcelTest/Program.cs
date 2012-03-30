@@ -14,15 +14,13 @@ namespace ExcelTest
         static void Main(string[] args)
         {
             ExcelClass.PreRequeriments.CheckPrerequeriments();
-            ExcelClass.OperateCode op = new ExcelClass.OperateCode();                 
+            ExcelClass.OperateExcel os = new ExcelClass.OperateExcel();
+            Worksheet sp = new Worksheet();
             string names = programPath + "\\aaa.xlsx";
 
-            //op.Create(); 
-            op.Open(names);
-            op.GetSheetsName();
-            op.AddSheet("names");
-            op.GetSheetsName();
-            op.Close();
+            sp = os.GetSheet("sheet008");
+            os.UniteCells(sp, 1, 1, 1, 2);
+            os.Close();
             Console.ReadKey();
         }
     }
