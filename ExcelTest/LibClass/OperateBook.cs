@@ -10,13 +10,14 @@ using System.Reflection;
 
 namespace ExcelClass
 {
-    partial class OperateExcel
+    partial class OperateExcel : IDisposable
     {
         public string fileName;
-        public Application application = null;
-        public Workbooks workBooks = null;
-        public Workbook workBook = null;
-        public Worksheet workSheet = null;
+        public Application application;
+        public Workbooks workBooks;
+        public Workbook workBook;
+        public Worksheet workSheet;
+        private bool disposed = false;
 
         /// <summary>
         /// 构造函数
@@ -29,97 +30,62 @@ namespace ExcelClass
                 workBooks = application.Workbooks;
             }
         }
+
+        /// <summary>
+        /// 析构函数
+        /// </summary>
+        ~OperateExcel()
+        {
+            Dispose();
+        }        
         
         #region OprateFile
 
         /// <summary>
-        /// 创建fileName工作簿
+        /// 创建工作簿
        /// </summary>
        /// <param name="fileName"></param>
         public void Create(string fileName)
-        {    
+        {
+            checkIfDisposed();
             if(string.IsNullOrEmpty(fileName))
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Excel工作簿名称不能为空！");
                 Console.ResetColor();
-                Close();
             }
             else if (File.Exists(fileName))
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine(fileName + "工作簿已经存在！");
+                Console.WriteLine(fileName + " 工作簿已经存在！");
                 Console.ResetColor();
-                Close();
             }
             else
             {
                 SaveAs(fileName);
-                Close();
             }
         }
 
-        /// <summary>
-        /// 另存为fileName工作簿
-        /// </summary>
-        /// <param name="fileName"></param>
-        public void SaveAs(object fileName)
+        public void Copy(string oldFileName,string newFileName)
         {
-            try
+            checkIfDisposed();
+            if (File.Exists(oldFileName))
             {
-                application.Visible = false;
-                workBook = workBooks.Add(true);
-                workBook.SaveAs(fileName, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, XlSaveAsAccessMode.xlExclusive, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
-                Close();
-            }
-            catch (Exception ex)
-            {
-                Debug.Write(ex.ToString());
-            }
+                if (File.Exists(newFileName))
+                {
+                    File.Delete(newFileName);
+                }
+                File.Move(oldFileName, newFileName);                    
+            }            
         }
 
         /// <summary>
-        /// 删除fileName工作簿
+        /// 打开工作簿
         /// </summary>
         /// <param name="fileName"></param>
-        public void Delete(string fileName)
-        {           
-            if (string.IsNullOrEmpty(fileName))
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Excel工作簿名称不能为空！");
-                Console.ResetColor();
-                Close();
-            }
-           else if (!File.Exists(fileName))
-           {
-               Console.ForegroundColor = ConsoleColor.Red;
-               Console.WriteLine(fileName + "工作簿不存在！");
-               Console.ResetColor();
-               Close();
-           }
-           else
-           {
-               try
-               {
-                   FileStream fs = new FileStream(fileName, FileMode.Append, FileAccess.Write, FileShare.None);
-                   fs.Close();
-                   File.Delete(fileName);
-                   Close();
-               }
-               catch (Exception ex)
-               {
-                   Debug.Write(ex.ToString());
-               }
-           }
-        }
-
-        /// <summary>
-        /// 打开fileName工作簿
-        /// </summary>
-        /// <param name="fileName">工作簿路径和名称</param>
         public void Open(string fileName)
         {
+            checkIfDisposed();
              // 判断文件是否被其他进程使用
             try 
             {                
@@ -133,29 +99,73 @@ namespace ExcelClass
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Excel文件处于打开状态，请保持关闭！");
                 Console.ResetColor();
-                Close();
             }
-            this.fileName = fileName;
         }
 
         /// <summary>
-        /// 保存fileName工作簿
+        /// 保存工作簿
+        /// </summary>
+        public void Save()
+        {
+            checkIfDisposed();
+            if(workBook!=null)
+                workBook.Save();
+        }
+
+        /// <summary>
+        /// 另存为工作簿
         /// </summary>
         /// <param name="fileName"></param>
-        public void Save(string fileName)
+        public void SaveAs(string fileName)
         {
-            if (!string.IsNullOrEmpty(fileName))
-            {                
+            checkIfDisposed();
+            application.Visible = false;
+            workBook = workBooks.Add(true);
+            workBook.SaveAs(fileName, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, XlSaveAsAccessMode.xlExclusive, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+        }
+
+        /// <summary>
+        /// 删除工作簿
+        /// </summary>
+        /// <param name="fileName"></param>
+        public void Delete(string fileName)
+        {
+            checkIfDisposed();
+            if (string.IsNullOrEmpty(fileName))
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Excel工作簿名称不能为空！");
+                Console.ResetColor();
+            }
+            else if (!File.Exists(fileName))
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(fileName + "工作簿不存在！");
+                Console.ResetColor();
+            }
+            else
+            {
                 try
                 {
-                    workBook.Save();
-                    //Close();
+                    FileStream fs = new FileStream(fileName, FileMode.Append, FileAccess.Write, FileShare.None);
+                    fs.Close();
+                    File.Delete(fileName);
                 }
                 catch (Exception ex)
                 {
-                    Debug.Write(ex.Message);
+                    Debug.Write(ex.ToString());
                 }
             }
+        }
+
+        /// <summary>
+        /// 关闭/销毁一个Excel对象
+        /// </summary>
+        public void Close()
+        {
+            checkIfDisposed();
+            Save();
+            Dispose();
         }
 
         #endregion
@@ -246,40 +256,52 @@ namespace ExcelClass
         }
 
         #endregion
-
+        
         /// <summary>
-        /// 关闭一个Excel对象，销毁对象
+        /// 释放资源
         /// </summary>
-        public void Close()
+        public virtual void Dispose()
         {
-            Save(fileName);
-            //Clipboard.Clear();
-            try
+            if (!disposed)
             {
-                if (workBook != null)
+                try
                 {
-                    workBook.Close(Type.Missing, Type.Missing, Type.Missing);
-                    Marshal.ReleaseComObject(workBook);
-                    workBook = null;
+                    if (workBook != null)
+                    {
+                        workBook.Close(Type.Missing, Type.Missing, Type.Missing);
+                        Marshal.ReleaseComObject(workBook);
+                        workBook = null;
+                    }
+                    if (workBooks != null)
+                    {
+                        workBooks.Close();
+                        Marshal.ReleaseComObject(workBooks);
+                        workBooks = null;
+                    }
+                    if (application != null)
+                    {
+                        application.Quit();
+                        Marshal.ReleaseComObject(application);
+                        application = null;
+                    }
+                    GC.Collect();
                 }
-                if (workBooks != null)
+                finally
                 {
-                    workBooks.Close();
-                    Marshal.ReleaseComObject(workBooks);
-                    workBooks = null;
+                    this.disposed = true;
+                    GC.SuppressFinalize(this);
                 }
-                if (application != null)
-                {                    
-                    application.Quit();
-                    Marshal.ReleaseComObject(application);
-                    application = null;
-                }
-                GC.Collect();
-            }
-            catch (Exception ex)
-            {
-                Debug.Write(ex.ToString());
             }
         }
+
+        /// <summary>
+        /// 如果已释放抛出异常
+        /// </summary>
+        private void checkIfDisposed()
+        {
+            if (this.disposed)
+                throw new ObjectDisposedException("注意：对象已经释放");
+        }
+
     }
 }

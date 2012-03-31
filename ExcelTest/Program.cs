@@ -13,14 +13,17 @@ namespace ExcelTest
 
         static void Main(string[] args)
         {
-            ExcelClass.PreRequeriments.CheckPrerequeriments();
-            ExcelClass.OperateExcel os = new ExcelClass.OperateExcel();
-            Worksheet sp = new Worksheet();
-            string names = programPath + "\\aaa.xlsx";
+            ExcelClass.PreRequeriments pr = new ExcelClass.PreRequeriments();
+            pr.CheckPrerequeriments();
 
-            sp = os.GetSheet("sheet008");
-            os.UniteCells(sp, 1, 1, 1, 2);
-            os.Close();
+            ExcelClass.OperateExcel op = new ExcelClass.OperateExcel();
+            string pf1= programPath + "\\aaa.xlsx";
+            string pf2 = programPath + "\\bb.xlsx";
+            //op.Create(pf1);
+            //op.Open(pf1);
+            op.Copy(pf1, pf2);
+            Console.ReadKey();
+            op.Close();
             Console.ReadKey();
         }
     }
