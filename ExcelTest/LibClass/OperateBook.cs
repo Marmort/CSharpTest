@@ -66,6 +66,11 @@ namespace ExcelClass
             }
         }
 
+        /// <summary>
+        /// 复制工作簿
+        /// </summary>
+        /// <param name="oldFileName"></param>
+        /// <param name="newFileName"></param>
         public void Copy(string oldFileName,string newFileName)
         {
             checkIfDisposed();
@@ -75,8 +80,26 @@ namespace ExcelClass
                 {
                     File.Delete(newFileName);
                 }
-                File.Move(oldFileName, newFileName);                    
+                File.Copy(oldFileName, newFileName);                    
             }            
+        }
+
+        /// <summary>
+        /// 重命名工作簿
+        /// </summary>
+        /// <param name="oldFileName"></param>
+        /// <param name="newFileName"></param>
+        public void ReName(string oldFileName, string newFileName)
+        {
+            checkIfDisposed();
+            if (File.Exists(oldFileName))
+            {
+                if (File.Exists(newFileName))
+                {
+                    File.Delete(newFileName);
+                }
+                File.Move(oldFileName, newFileName);
+            }
         }
 
         /// <summary>
@@ -233,26 +256,26 @@ namespace ExcelClass
         /// <summary>
         /// 重命名一个工作表
         /// </summary>
-        /// <param name="OldSheetName"></param>
-        /// <param name="NewSheetName"></param>
+        /// <param name="oldSheetName"></param>
+        /// <param name="newSheetName"></param>
         /// <returns></returns>
-        public Worksheet ReNameSheet(string OldSheetName, string NewSheetName)
+        public Worksheet ReNameSheet(string oldSheetName, string newSheetName)
         {
-            workSheet = (Worksheet)workBook.Worksheets[OldSheetName];
-            workSheet.Name = NewSheetName;
+            workSheet = (Worksheet)workBook.Worksheets[oldSheetName];
+            workSheet.Name = newSheetName;
             return workSheet;
         }
 
         /// <summary>
         /// 重命名一个工作表
         /// </summary>
-        /// <param name="Sheet"></param>
-        /// <param name="NewSheetName"></param>
+        /// <param name="sheet"></param>
+        /// <param name="newSheetName"></param>
         /// <returns></returns>
-        public Worksheet ReNameSheet(Worksheet Sheet, string NewSheetName)
+        public Worksheet ReNameSheet(Worksheet sheet, string newSheetName)
         {
-            Sheet.Name = NewSheetName;
-            return Sheet;
+            sheet.Name = newSheetName;
+            return sheet;
         }
 
         #endregion

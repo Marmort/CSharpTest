@@ -6,7 +6,7 @@ using Microsoft.Office.Interop.Excel;
 
 namespace ExcelClass
 {
-    partial class OperateExcel
+    partial class OperateExcel : IDisposable
     {        
         /// <summary>
         /// 设置某单元格的值
