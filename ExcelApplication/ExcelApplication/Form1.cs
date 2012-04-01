@@ -73,10 +73,8 @@ namespace ExcelApplication
             this.Close();
         }
 
-        private void saveSToolStripMenuItem_Click(object sender, EventArgs e)
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ApplicationClass ExcelApp = new ApplicationClass();
-            ExcelApp.Application.Workbooks.Add(Type.Missing);
             OpenFileDialog dlg = new OpenFileDialog();
             DialogResult dlgResult = dlg.ShowDialog();
             if (dlgResult == DialogResult.OK)
@@ -84,24 +82,50 @@ namespace ExcelApplication
                 txtPath.Text = dlg.FileName;
             }
 
-            for (int i = 1; i < dataGridView1.Columns.Count + 1; i++)
+            DialogResult ret = MessageBox.Show("Copy to " + txtPath.Text, "", MessageBoxButtons.OKCancel);
+            if (ret == DialogResult.OK)
             {
-                ExcelApp.Cells[1, i] = dataGridView1.Columns[i - 1].HeaderText;
-            }
-
-            //for (int i = 0; i < dataGridView1.Rows.Count - 1; i++)
-            for (int i = 0; i < 5; i++)
-            {
-                for (int j = 0; j < dataGridView1.Columns.Count; j++)
+                ApplicationClass ExcelApp = new ApplicationClass();
+                ExcelApp.Application.Workbooks.Add(Type.Missing);
+                for (int i = 1; i < dataGridView1.Columns.Count + 1; i++)
                 {
-                    ExcelApp.Cells[i + 2, j + 1] = dataGridView1.Rows[i].Cells[j].Value.ToString();
+                    ExcelApp.Cells[1, i] = dataGridView1.Columns[i - 1].HeaderText;
                 }
-            }            
-            ExcelApp.ActiveWorkbook.SaveCopyAs(txtPath.Text);
-            ExcelApp.ActiveWorkbook.Saved = true;
-            ExcelApp.Quit();
 
-            MessageBox.Show("Sheet is Saved!");
+                for (int i = 0; i < dataGridView1.Rows.Count - 1; i++)
+                {
+                    for (int j = 0; j < dataGridView1.Columns.Count; j++)
+                    {
+                        ExcelApp.Cells[i + 2, j + 1] = dataGridView1.Rows[i].Cells[j].Value.ToString();
+                    }
+                }
+                ExcelApp.ActiveWorkbook.SaveCopyAs(txtPath.Text);
+                ExcelApp.ActiveWorkbook.Saved = true;
+                ExcelApp.Quit();
+                MessageBox.Show("Sheet is Saved!");
+            }            
         }
+
+        private void calculatorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process Proc;
+
+            try
+            {
+                Proc = System.Diagnostics.Process.Start(@"c:\windows\system32\calc.exe");
+            }
+            catch
+            {
+                MessageBox.Show("File Not Found!", "Error");
+                return;
+            }
+        }
+
+        private void addressToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string address = @"http://www.dotneter.com/";
+            MessageBox.Show(address);
+        }
+
     }
 }
