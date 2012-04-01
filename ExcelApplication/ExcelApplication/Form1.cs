@@ -73,6 +73,76 @@ namespace ExcelApplication
             this.Close();
         }
 
+        private void calculatorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process Proc;
+
+            try
+            {
+                Proc = System.Diagnostics.Process.Start(@"c:\windows\system32\calc.exe");
+            }
+            catch
+            {
+                MessageBox.Show("File Not Found!", "Error");
+                return;
+            }
+        }
+
+        private void addressToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string address = @"http://www.dotneter.com/";
+            MessageBox.Show(address);
+        }
+
+        private void quireToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dlg = new OpenFileDialog();
+            DialogResult dlgResult = dlg.ShowDialog();
+            if (dlgResult == DialogResult.OK)
+            {
+                txtPath.Text = dlg.FileName;
+            }
+
+            DialogResult ret = MessageBox.Show("Copy to " + txtPath.Text, "", MessageBoxButtons.OKCancel);
+            if (ret == DialogResult.OK)
+            {
+                ApplicationClass ExcelApp = new ApplicationClass();
+                ExcelApp.Application.Workbooks.Add(Type.Missing);
+                for (int i = 1, k = 1; i < dataGridView1.Columns.Count + 1; i++)
+                {
+                    if ((i - 13) % 2 < 1)
+                    {
+                        ExcelApp.Cells[1, k] = dataGridView1.Columns[i - 1].HeaderText;
+                        k++;
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                }
+
+                for (int i = 0; i < dataGridView1.Rows.Count - 1; i++)
+                {
+                    for (int j = 0, k = 0; j < dataGridView1.Columns.Count; j++)
+                    {
+                        if ((j - 12) % 2 < 1)
+                        {
+                            ExcelApp.Cells[i + 2, k + 1] = dataGridView1.Rows[i].Cells[j].Value.ToString();
+                            k++;
+                        }
+                        else
+                        {
+                            continue;
+                        }
+                    }
+                }
+                ExcelApp.ActiveWorkbook.SaveCopyAs(txtPath.Text);
+                ExcelApp.ActiveWorkbook.Saved = true;
+                ExcelApp.Quit();
+                MessageBox.Show("Sheet is Saved!");
+            }            
+        }
+
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFileDialog dlg = new OpenFileDialog();
@@ -104,27 +174,6 @@ namespace ExcelApplication
                 ExcelApp.Quit();
                 MessageBox.Show("Sheet is Saved!");
             }            
-        }
-
-        private void calculatorToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            System.Diagnostics.Process Proc;
-
-            try
-            {
-                Proc = System.Diagnostics.Process.Start(@"c:\windows\system32\calc.exe");
-            }
-            catch
-            {
-                MessageBox.Show("File Not Found!", "Error");
-                return;
-            }
-        }
-
-        private void addressToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            string address = @"http://www.dotneter.com/";
-            MessageBox.Show(address);
         }
 
     }
