@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelApplication", "ExcelApplication\ExcelApplication.csproj", "{4713103E-18B4-45BF-B386-166301840918}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelApplication", "ExcelApplication\ExcelApplication.csproj", "{F8259040-5475-4265-A846-80D172331C30}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,10 +9,10 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{4713103E-18B4-45BF-B386-166301840918}.Debug|x86.ActiveCfg = Debug|x86
-		{4713103E-18B4-45BF-B386-166301840918}.Debug|x86.Build.0 = Debug|x86
-		{4713103E-18B4-45BF-B386-166301840918}.Release|x86.ActiveCfg = Release|x86
-		{4713103E-18B4-45BF-B386-166301840918}.Release|x86.Build.0 = Release|x86
+		{F8259040-5475-4265-A846-80D172331C30}.Debug|x86.ActiveCfg = Debug|x86
+		{F8259040-5475-4265-A846-80D172331C30}.Debug|x86.Build.0 = Debug|x86
+		{F8259040-5475-4265-A846-80D172331C30}.Release|x86.ActiveCfg = Release|x86
+		{F8259040-5475-4265-A846-80D172331C30}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
