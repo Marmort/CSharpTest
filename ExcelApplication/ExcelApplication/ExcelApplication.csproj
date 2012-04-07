@@ -56,7 +56,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Lib\Excel07.cs" />
+    <Compile Include="Lib\Excel2007.cs" />
     <Compile Include="Lib\ExcelLib.cs" />
     <Compile Include="Lib\IExcel.cs" />
     <Compile Include="Program.cs" />

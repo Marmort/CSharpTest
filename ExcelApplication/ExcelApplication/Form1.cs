@@ -86,11 +86,11 @@ namespace ExcelApplication
         {
             try
             {
-                ExcelLib.IExcel tmp = ExcelLib.ExcelLib.GetExcel(txtPath.Text);
+                ExcelLib.IExcel tmp = ExcelLib.PreExcel.GetExcel(txtPath.Text);
                 if (tmp == null)
-                    MessageBox.Show("打开文件错误");
+                    MessageBox.Show("文件不存在");
                 if (!tmp.Open())
-                    MessageBox.Show("打开文件错误");
+                    MessageBox.Show("文件不能打开");
 
                 tmp.CurrentSheetIndex = comboBox1.SelectedIndex;
                 int columnCount = tmp.GetColumnCount();
@@ -117,6 +117,49 @@ namespace ExcelApplication
             {
                 MessageBox.Show(ex.Message, "Error");
             }            
+        }
+
+        private void saveAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ExcelLib.IExcel tmp = ExcelLib.PreExcel.GetExcel(txtPath.Text);
+                if (tmp == null)
+                    MessageBox.Show("文件不存在");
+                tmp.CurrentSheetIndex = tmp.SheetCount;
+
+                int columnCount = dataGridView1.ColumnCount;
+                int rowCount = dataGridView1.RowCount;
+
+                string[,] array = new string[rowCount, columnCount];
+                
+                for (int i = 0; i < columnCount; i++)
+                {
+                    array[0, i] = (string)dataGridView1.Columns[i].HeaderCell.Value;
+                }
+
+                for (int i = 1; i < rowCount; i++)
+                {
+                    for (int j = 0; j < columnCount; j++)
+                    {
+                        array[i, j] = (string)dataGridView1.Rows[i - 1].Cells[j].Value;
+                    }
+                }
+
+                string sheetName = "";
+                if (tmp.Save(sheetName, array))
+                    MessageBox.Show("新表名称默认为Sheet234");
+                tmp.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error");
+            }
+        }
+
+        private void codeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("http://epplus.codeplex.com/discussions");
         }
              
     }

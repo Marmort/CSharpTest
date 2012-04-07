@@ -2,10 +2,10 @@
 
 namespace ExcelLib
 {
-    class ExcelLib
+    class PreExcel
     {
-        /// <param name="filePath">Excel文件路径</param>  
-        /// <returns></returns>  
+        /// <param name="filePath">Excel文件路径</param>
+        /// <returns></returns>
         public static IExcel GetExcel(string filePath)
         {
             if (filePath.Trim() == "")
@@ -23,11 +23,11 @@ namespace ExcelLib
             }
             else if (filePath.Trim().EndsWith("xlsx"))
             {
-                IExcel res = new Excel07(filePath.Trim());
+                IExcel res = new Excel2007(filePath.Trim());
                 return res;
             }
-            else 
+            else
                 return null;
-        }  
+        }
     }
 }
