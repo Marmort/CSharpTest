@@ -65,6 +65,7 @@ namespace ExcelApplication
                 return;
             }
             comboBox1.DataSource = GetSheetNames(txtPath.Text);
+            btnLoadData.Enabled = true;
         }
 
         private void calculatorToolStripMenuItem_Click(object sender, EventArgs e)
@@ -116,10 +117,21 @@ namespace ExcelApplication
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error");
-            }            
+            }
+            btnLoadData.Enabled = false;
+        }
+      
+        private void codeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("http://epplus.codeplex.com/discussions");
         }
 
-        private void saveAllToolStripMenuItem_Click(object sender, EventArgs e)
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            btnLoadData.Enabled = true;
+        }
+
+        private void saveToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             try
             {
@@ -132,7 +144,7 @@ namespace ExcelApplication
                 int rowCount = dataGridView1.RowCount;
 
                 string[,] array = new string[rowCount, columnCount];
-                
+
                 for (int i = 0; i < columnCount; i++)
                 {
                     array[0, i] = (string)dataGridView1.Columns[i].HeaderCell.Value;
@@ -148,7 +160,7 @@ namespace ExcelApplication
 
                 string sheetName = "";
                 if (tmp.Save(sheetName, array))
-                    MessageBox.Show("新表名称默认为Sheet234");
+                    MessageBox.Show("文件保存成功");
                 tmp.Close();
             }
             catch (Exception ex)
@@ -157,10 +169,68 @@ namespace ExcelApplication
             }
         }
 
-        private void codeToolStripMenuItem_Click(object sender, EventArgs e)
+        private void dataGridView1_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
         {
-            MessageBox.Show("http://epplus.codeplex.com/discussions");
+            Rectangle rectangle = new Rectangle(e.RowBounds.Location.X,
+                e.RowBounds.Location.Y,
+                dataGridView1.RowHeadersWidth - 4,
+                e.RowBounds.Height);
+
+            TextRenderer.DrawText(e.Graphics, (e.RowIndex + 1).ToString(),
+                dataGridView1.RowHeadersDefaultCellStyle.Font,
+                rectangle,
+                dataGridView1.RowHeadersDefaultCellStyle.ForeColor,
+                TextFormatFlags.VerticalCenter | TextFormatFlags.Right);
         }
-             
+
+        private void columnToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int columnCount = dataGridView1.ColumnCount;
+            
+            if (columnCount != 66)
+                return;
+
+            dataGridView1.Columns.RemoveAt(65);
+            dataGridView1.Columns.RemoveAt(64);
+            dataGridView1.Columns.RemoveAt(63);
+            dataGridView1.Columns.RemoveAt(62);
+            dataGridView1.Columns.RemoveAt(61);
+            dataGridView1.Columns.RemoveAt(60);
+            dataGridView1.Columns.RemoveAt(59);
+            dataGridView1.Columns.RemoveAt(58);
+            dataGridView1.Columns.RemoveAt(57);
+            dataGridView1.Columns.RemoveAt(56);
+            dataGridView1.Columns.RemoveAt(55);
+            dataGridView1.Columns.RemoveAt(54);
+            dataGridView1.Columns.RemoveAt(53);
+            dataGridView1.Columns.RemoveAt(52);
+            dataGridView1.Columns.RemoveAt(51);
+            dataGridView1.Columns.RemoveAt(50);
+            dataGridView1.Columns.RemoveAt(49);
+            
+            dataGridView1.Columns.RemoveAt(47);
+            dataGridView1.Columns.RemoveAt(45);
+            dataGridView1.Columns.RemoveAt(43);
+            dataGridView1.Columns.RemoveAt(41);
+            dataGridView1.Columns.RemoveAt(39);
+            dataGridView1.Columns.RemoveAt(37);
+            dataGridView1.Columns.RemoveAt(35);
+            dataGridView1.Columns.RemoveAt(33);
+            dataGridView1.Columns.RemoveAt(31);
+            dataGridView1.Columns.RemoveAt(29);
+            dataGridView1.Columns.RemoveAt(27);
+            dataGridView1.Columns.RemoveAt(25);
+            dataGridView1.Columns.RemoveAt(23);
+            dataGridView1.Columns.RemoveAt(21);
+            dataGridView1.Columns.RemoveAt(19);
+            dataGridView1.Columns.RemoveAt(17);
+            dataGridView1.Columns.RemoveAt(15);
+            dataGridView1.Columns.RemoveAt(13);
+
+            dataGridView1.Columns.RemoveAt(7);
+            dataGridView1.Columns.RemoveAt(5);
+            dataGridView1.Columns.RemoveAt(2);
+        }
+
     }
 }

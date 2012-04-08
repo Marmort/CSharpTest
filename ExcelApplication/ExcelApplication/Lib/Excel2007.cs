@@ -85,7 +85,7 @@ namespace ExcelLib
                 book = ep.Workbook;
                 if (newSheetName =="")
                 {
-                    currentSheet = book.Worksheets.Add("Sheet234");
+                    currentSheet = book.Worksheets.Add("WSheet");
                 }
                 else
                 {
