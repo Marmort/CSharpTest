@@ -1,6 +1,8 @@
 ﻿using System;
 using OfficeOpenXml;
+using OfficeOpenXml.Style;
 using System.IO;
+using System.Drawing;
 
 namespace ExcelLib
 {
@@ -82,9 +84,8 @@ namespace ExcelLib
 
                 if (ep == null) return false;
                 book = ep.Workbook;
-                if (newSheetName =="")
+                if (newSheetName == "")
                 {
-                    book.Worksheets.Delete("WSheet");
                     currentSheet = book.Worksheets.Add("WSheet");
                 }
                 else
@@ -99,7 +100,14 @@ namespace ExcelLib
                         currentSheet.Cells[i + 1, j + 1].Value = array[i, j];
                     }
                 }
-                
+                using (var range = currentSheet.Cells[1, 1, 1, (int)array.GetLongLength(1)])
+                {
+                    range.Style.Font.Bold = true;
+                    range.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                    range.Style.Fill.BackgroundColor.SetColor(Color.DarkBlue);
+                    range.Style.Font.Color.SetColor(Color.White);
+                }
+
                 ep.Save();
                 ifSave = true;
             }

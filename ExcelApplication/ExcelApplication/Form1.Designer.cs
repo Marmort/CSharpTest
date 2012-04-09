@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -36,7 +36,7 @@
             this.saveToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.removecolumnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeColumnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.calculatorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -48,6 +48,10 @@
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.btnLoadData = new System.Windows.Forms.Button();
+            this.statisticsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ingotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cuttingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -106,17 +110,18 @@
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.removecolumnToolStripMenuItem});
+            this.removeColumnToolStripMenuItem,
+            this.statisticsToolStripMenuItem});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             this.editToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
             this.editToolStripMenuItem.Text = "Edit";
             // 
-            // removecolumnToolStripMenuItem
+            // removeColumnToolStripMenuItem
             // 
-            this.removecolumnToolStripMenuItem.Name = "removecolumnToolStripMenuItem";
-            this.removecolumnToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.removecolumnToolStripMenuItem.Text = "RemoveColumn";
-            this.removecolumnToolStripMenuItem.Click += new System.EventHandler(this.removecolumnToolStripMenuItem_Click);
+            this.removeColumnToolStripMenuItem.Name = "removeColumnToolStripMenuItem";
+            this.removeColumnToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.removeColumnToolStripMenuItem.Text = "RemoveColumn";
+            this.removeColumnToolStripMenuItem.Click += new System.EventHandler(this.removeColumnToolStripMenuItem_Click);
             // 
             // toolToolStripMenuItem
             // 
@@ -150,8 +155,8 @@
             // 
             // dataGridView1
             // 
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
@@ -218,6 +223,35 @@
             this.btnLoadData.UseVisualStyleBackColor = true;
             this.btnLoadData.Click += new System.EventHandler(this.btnLoadData_Click);
             // 
+            // statisticsToolStripMenuItem
+            // 
+            this.statisticsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.dateToolStripMenuItem,
+            this.ingotToolStripMenuItem,
+            this.cuttingToolStripMenuItem});
+            this.statisticsToolStripMenuItem.Name = "statisticsToolStripMenuItem";
+            this.statisticsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.statisticsToolStripMenuItem.Text = "Statistics";
+            // 
+            // dateToolStripMenuItem
+            // 
+            this.dateToolStripMenuItem.Name = "dateToolStripMenuItem";
+            this.dateToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.dateToolStripMenuItem.Text = "Date";
+            this.dateToolStripMenuItem.Click += new System.EventHandler(this.dateToolStripMenuItem_Click);
+            // 
+            // ingotToolStripMenuItem
+            // 
+            this.ingotToolStripMenuItem.Name = "ingotToolStripMenuItem";
+            this.ingotToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.ingotToolStripMenuItem.Text = "Ingot";
+            // 
+            // cuttingToolStripMenuItem
+            // 
+            this.cuttingToolStripMenuItem.Name = "cuttingToolStripMenuItem";
+            this.cuttingToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.cuttingToolStripMenuItem.Text = "Cutting";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -261,7 +295,11 @@
         private System.Windows.Forms.ToolStripMenuItem codeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem removecolumnToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem removeColumnToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem statisticsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem dateToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ingotToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cuttingToolStripMenuItem;
     }
 }
 

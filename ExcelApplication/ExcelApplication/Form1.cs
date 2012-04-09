@@ -19,12 +19,7 @@ namespace ExcelApplication
         {
             InitializeComponent();
         }
-
-        /// <summary>
-        /// 获取当前工作簿的所有表名称
-        /// </summary>
-        /// <param name="path">当前工作簿路径</param>
-        /// <returns>所有表名称</returns>
+        
         public static List<string> GetSheetNames(string path)
         {
             List<string> sheets = new List<string>();
@@ -183,7 +178,7 @@ namespace ExcelApplication
                 TextFormatFlags.VerticalCenter | TextFormatFlags.Right);
         }
 
-        private void removecolumnToolStripMenuItem_Click(object sender, EventArgs e)
+        private void removeColumnToolStripMenuItem_Click(object sender, EventArgs e)
         {
             int columnCount = dataGridView1.ColumnCount;
 
@@ -212,7 +207,34 @@ namespace ExcelApplication
                 dataGridView1.Rows[i].Cells[2].Value  = (rowValue[i].Length > 6) ? rowValue[i].Substring(0, 6) : rowValue[i];
             }
             dataGridView1.Columns[2].HeaderCell.Value = "铸锭编号";
-            MessageBox.Show("删除了百分比和人员记录");
+            MessageBox.Show("删除了百分比和人员记录，整理出铸锭编号");
+        }
+
+        private void dateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int columnCount = dataGridView1.ColumnCount;
+            int rowCount = dataGridView1.RowCount;
+            int selectCol = 3;
+
+            dataGridView1.Sort(dataGridView1.Columns[selectCol], ListSortDirection.Ascending);
+
+            var tempA = dataGridView1.Rows[rowCount - 1].Cells[selectCol].Value;
+            for (int i = rowCount - 2; i >= 0; i--)
+            {
+                var tempB = dataGridView1.Rows[i].Cells[selectCol].Value;
+                if (tempA == tempB)
+                {
+                    for (int j = 5; j < columnCount; j++)
+                    {
+                        int a = (int)dataGridView1.Rows[i].Cells[j].Value;
+                        int b = (int)dataGridView1.Rows[i + 1].Cells[j].Value;
+                        a += b;
+                        dataGridView1.Rows[i].Cells[j].Value = a.ToString();
+                        dataGridView1.Rows.RemoveAt(i + 1);
+                    }
+                }
+                tempA = tempB;
+            }
         }
 
     }
