@@ -40,7 +40,49 @@ namespace ExcelApplication
                 sheets.Add(sheetName);
             }
             return sheets;
-        }      
+        }
+
+        public bool dataTotal(int col)
+        {
+            try
+            {
+                dataGridView1.Sort(dataGridView1.Columns[col], ListSortDirection.Ascending);
+
+                int columnCount = dataGridView1.ColumnCount;
+                int rowCount = dataGridView1.RowCount;
+
+                int[,] tempArry = new int[rowCount - 1, columnCount - 5];
+
+                for (int i = 0; i < rowCount - 1; i++)
+                {
+                    for (int j = 0; j < columnCount - 5; j++)
+                    {
+                        tempArry[i, j] = int.Parse(dataGridView1.Rows[i].Cells[j + 5].Value.ToString());
+                    }
+                }
+
+                string tempA = (string)dataGridView1.Rows[rowCount - 2].Cells[col].Value;
+                for (int i = rowCount - 3; i >= 0; i--)
+                {
+                    string tempB = (string)dataGridView1.Rows[i].Cells[col].Value;
+                    if (tempA.GetHashCode() == tempB.GetHashCode())
+                    {
+                        for (int j = 5; j < columnCount; j++)
+                        {
+                            tempArry[i, j - 5] += tempArry[i + 1, j - 5];
+                            dataGridView1.Rows[i].Cells[j].Value = tempArry[i, j - 5].ToString();
+                        }
+                        dataGridView1.Rows.RemoveAt(i + 1);
+                    }
+                    tempA = tempB;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+            return true;           
+        }
 
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -212,29 +254,23 @@ namespace ExcelApplication
 
         private void dateToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int columnCount = dataGridView1.ColumnCount;
-            int rowCount = dataGridView1.RowCount;
             int selectCol = 3;
+            if (dataTotal(selectCol))
+                MessageBox.Show("数据处理完毕");
+        }
 
-            dataGridView1.Sort(dataGridView1.Columns[selectCol], ListSortDirection.Ascending);
+        private void ingotToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int selectCol = 2;
+            if (dataTotal(selectCol))
+                MessageBox.Show("数据处理完毕");
+        }
 
-            var tempA = dataGridView1.Rows[rowCount - 1].Cells[selectCol].Value;
-            for (int i = rowCount - 2; i >= 0; i--)
-            {
-                var tempB = dataGridView1.Rows[i].Cells[selectCol].Value;
-                if (tempA == tempB)
-                {
-                    for (int j = 5; j < columnCount; j++)
-                    {
-                        int a = (int)dataGridView1.Rows[i].Cells[j].Value;
-                        int b = (int)dataGridView1.Rows[i + 1].Cells[j].Value;
-                        a += b;
-                        dataGridView1.Rows[i].Cells[j].Value = a.ToString();
-                        dataGridView1.Rows.RemoveAt(i + 1);
-                    }
-                }
-                tempA = tempB;
-            }
+        private void cuttingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int selectCol = 4;
+            if (dataTotal(selectCol))
+                MessageBox.Show("数据处理完毕");
         }
 
     }
