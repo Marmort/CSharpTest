@@ -14,13 +14,17 @@ namespace ExcelLib
         int SheetCount { get; }
         /// <summary> 当前工作表序号 </summary>
         int CurrentSheetIndex { get; set; }
+        /// <summary> 文件是否已经保存 </summary>
+        bool ISave { get; }
         /// <summary> 打开文件 </summary>
         bool Open();
-        /// <summary> 保存新表名</summary>
-        bool Save(string newSheetName, string[,] array);       
-        /// <summary> 获取当前工作表中行数</summary>
+        /// <summary> 保存新表名 </summary>
+        /// <param name="newSheetName">新表名</param>
+        /// <param name="array">需保存的二维数组</param>
+        bool Save(string newSheetName, string[,] array);
+        /// <summary> 获取当前工作表中行数 </summary>
         int GetRowCount();
-        /// <summary> 获取当前工作表中列数</summary>
+        /// <summary> 获取当前工作表中列数 </summary>
         int GetColumnCount();
         /// <summary> 获取当前工作表中某一行中单元格的数量 </summary>
         /// <param name="Row">行序号</param>
@@ -33,7 +37,7 @@ namespace ExcelLib
         void Close();
     }
     
-    public enum ExcelVersion  
+    public enum ExcelVersion
     {
         /// <summary> Excel2003之前版本 ,xls </summary>
         Excel2003,

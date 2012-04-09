@@ -1,7 +1,6 @@
 ﻿using System;
 using OfficeOpenXml;
 using System.IO;
-using System.Windows.Forms;
 
 namespace ExcelLib
 {
@@ -107,7 +106,6 @@ namespace ExcelLib
             {
                 throw new Exception("保存文件失败，详细信息：" + ex.Message);
             }
-           //return currentSheet.ToString();
            return true;
         }
         
