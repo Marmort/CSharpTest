@@ -200,7 +200,7 @@ namespace ExcelApplication
                 {
                     if (sheetName.GetHashCode() == comboBox1.GetItemText(comboBox1.Items[i]).GetHashCode())
                     {
-                        sheetName = "W" + sheetName;
+                        sheetName += "W";
                     }
                 }                
                 
