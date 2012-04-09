@@ -36,7 +36,7 @@
             this.saveToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.columnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removecolumnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.calculatorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -106,17 +106,17 @@
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.columnToolStripMenuItem});
+            this.removecolumnToolStripMenuItem});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             this.editToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
             this.editToolStripMenuItem.Text = "Edit";
             // 
-            // columnToolStripMenuItem
+            // removecolumnToolStripMenuItem
             // 
-            this.columnToolStripMenuItem.Name = "columnToolStripMenuItem";
-            this.columnToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
-            this.columnToolStripMenuItem.Text = "Column";
-            this.columnToolStripMenuItem.Click += new System.EventHandler(this.columnToolStripMenuItem_Click);
+            this.removecolumnToolStripMenuItem.Name = "removecolumnToolStripMenuItem";
+            this.removecolumnToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.removecolumnToolStripMenuItem.Text = "RemoveColumn";
+            this.removecolumnToolStripMenuItem.Click += new System.EventHandler(this.removecolumnToolStripMenuItem_Click);
             // 
             // toolToolStripMenuItem
             // 
@@ -261,7 +261,7 @@
         private System.Windows.Forms.ToolStripMenuItem codeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem columnToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem removecolumnToolStripMenuItem;
     }
 }
 

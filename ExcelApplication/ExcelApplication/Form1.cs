@@ -183,14 +183,14 @@ namespace ExcelApplication
                 TextFormatFlags.VerticalCenter | TextFormatFlags.Right);
         }
 
-        private void columnToolStripMenuItem_Click(object sender, EventArgs e)
+        private void removecolumnToolStripMenuItem_Click(object sender, EventArgs e)
         {
             int columnCount = dataGridView1.ColumnCount;
-            
+
             if (columnCount != 66)
                 return;
 
-            for (int i = 65; i >48; i--)
+            for (int i = 65; i > 48; i--)
             {
                 dataGridView1.Columns.RemoveAt(i);
             }
@@ -201,7 +201,18 @@ namespace ExcelApplication
             }
             dataGridView1.Columns.RemoveAt(7);
             dataGridView1.Columns.RemoveAt(5);
-            dataGridView1.Columns.RemoveAt(2);
+
+            int rowCount = dataGridView1.RowCount;
+            string[] rowValue = new string[rowCount];
+
+            for (int i = 0; i < rowCount; i++)
+            {
+                rowValue[i] = (string)dataGridView1.Rows[i].Cells[1].Value;
+                rowValue[i] = rowValue[i].TrimStart('M');
+                dataGridView1.Rows[i].Cells[2].Value  = (rowValue[i].Length > 6) ? rowValue[i].Substring(0, 6) : rowValue[i];
+            }
+            dataGridView1.Columns[2].HeaderCell.Value = "铸锭编号";
+            MessageBox.Show("删除了百分比和人员记录");
         }
 
     }
