@@ -15,7 +15,7 @@ namespace ExcelLib
         /// <summary> 当前工作表序号 </summary>
         int CurrentSheetIndex { get; set; }
         /// <summary> 文件是否已经保存 </summary>
-        bool ISave { get; }
+        bool IfSave { get; }
         /// <summary> 打开文件 </summary>
         bool Open();
         /// <summary> 保存新表名 </summary>

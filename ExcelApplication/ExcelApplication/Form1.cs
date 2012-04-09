@@ -190,43 +190,15 @@ namespace ExcelApplication
             if (columnCount != 66)
                 return;
 
-            dataGridView1.Columns.RemoveAt(65);
-            dataGridView1.Columns.RemoveAt(64);
-            dataGridView1.Columns.RemoveAt(63);
-            dataGridView1.Columns.RemoveAt(62);
-            dataGridView1.Columns.RemoveAt(61);
-            dataGridView1.Columns.RemoveAt(60);
-            dataGridView1.Columns.RemoveAt(59);
-            dataGridView1.Columns.RemoveAt(58);
-            dataGridView1.Columns.RemoveAt(57);
-            dataGridView1.Columns.RemoveAt(56);
-            dataGridView1.Columns.RemoveAt(55);
-            dataGridView1.Columns.RemoveAt(54);
-            dataGridView1.Columns.RemoveAt(53);
-            dataGridView1.Columns.RemoveAt(52);
-            dataGridView1.Columns.RemoveAt(51);
-            dataGridView1.Columns.RemoveAt(50);
-            dataGridView1.Columns.RemoveAt(49);
-            
-            dataGridView1.Columns.RemoveAt(47);
-            dataGridView1.Columns.RemoveAt(45);
-            dataGridView1.Columns.RemoveAt(43);
-            dataGridView1.Columns.RemoveAt(41);
-            dataGridView1.Columns.RemoveAt(39);
-            dataGridView1.Columns.RemoveAt(37);
-            dataGridView1.Columns.RemoveAt(35);
-            dataGridView1.Columns.RemoveAt(33);
-            dataGridView1.Columns.RemoveAt(31);
-            dataGridView1.Columns.RemoveAt(29);
-            dataGridView1.Columns.RemoveAt(27);
-            dataGridView1.Columns.RemoveAt(25);
-            dataGridView1.Columns.RemoveAt(23);
-            dataGridView1.Columns.RemoveAt(21);
-            dataGridView1.Columns.RemoveAt(19);
-            dataGridView1.Columns.RemoveAt(17);
-            dataGridView1.Columns.RemoveAt(15);
-            dataGridView1.Columns.RemoveAt(13);
-
+            for (int i = 65; i >48; i--)
+            {
+                dataGridView1.Columns.RemoveAt(i);
+            }
+            for (int i = 47; i > 12; )
+            {
+                dataGridView1.Columns.RemoveAt(i);
+                i -= 2;
+            }
             dataGridView1.Columns.RemoveAt(7);
             dataGridView1.Columns.RemoveAt(5);
             dataGridView1.Columns.RemoveAt(2);
