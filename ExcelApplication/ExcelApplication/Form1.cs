@@ -195,9 +195,20 @@ namespace ExcelApplication
                     }
                 }
 
-                string sheetName = "";
+                string sheetName = "W" + comboBox1.SelectedItem.ToString();
+                for (int i = 0; i < comboBox1.Items.Count; i++)
+                {
+                    if (sheetName.GetHashCode() == comboBox1.GetItemText(comboBox1.Items[i]).GetHashCode())
+                    {
+                        sheetName = "W" + sheetName;
+                    }
+                }                
+                
                 if (tmp.Save(sheetName, array))
+                {
+                    comboBox1.DataSource = GetSheetNames(txtPath.Text);
                     MessageBox.Show("文件保存成功");
+                }
                 tmp.Close();
             }
             catch (Exception ex)
