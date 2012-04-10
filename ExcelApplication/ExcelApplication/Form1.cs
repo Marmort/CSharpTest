@@ -51,16 +51,7 @@ namespace ExcelApplication
                 int columnCount = dataGridView1.ColumnCount;
                 int rowCount = dataGridView1.RowCount;
 
-                int[,] tempArry = new int[rowCount - 1, columnCount - 5];
-
-                for (int i = 0; i < rowCount - 1; i++)
-                {
-                    for (int j = 0; j < columnCount - 5; j++)
-                    {
-                        tempArry[i, j] = int.Parse(dataGridView1.Rows[i].Cells[j + 5].Value.ToString());
-                    }
-                }
-
+                int total = 0;
                 string tempA = (string)dataGridView1.Rows[rowCount - 2].Cells[col].Value;
                 for (int i = rowCount - 3; i >= 0; i--)
                 {
@@ -69,16 +60,37 @@ namespace ExcelApplication
                     {
                         for (int j = 5; j < columnCount; j++)
                         {
-                            tempArry[i, j - 5] += tempArry[i + 1, j - 5];
-                            dataGridView1.Rows[i].Cells[j].Value = tempArry[i, j - 5].ToString();
+                            if (string.IsNullOrEmpty(dataGridView1.Rows[i].Cells[j].Value.ToString()))
+                            {
+                                if (string.IsNullOrEmpty(dataGridView1.Rows[i + 1].Cells[j].Value.ToString()))
+                                {
+                                    total = 0; 
+                                }
+                                else
+                                { total = int.Parse(dataGridView1.Rows[i + 1].Cells[j].Value.ToString()); }                                
+                            }
+                            else
+                            {
+                                if (string.IsNullOrEmpty(dataGridView1.Rows[i + 1].Cells[j].Value.ToString()))
+                                {
+                                    total = int.Parse(dataGridView1.Rows[i].Cells[j].Value.ToString());
+                                }
+                                else
+                                { total = int.Parse(dataGridView1.Rows[i].Cells[j].Value.ToString()) + int.Parse(dataGridView1.Rows[i + 1].Cells[j].Value.ToString()); }
+                            }
+                            dataGridView1.Rows[i].Cells[j].Value = total.ToString();
                         }
                         dataGridView1.Rows.RemoveAt(i + 1);
                     }
-                    tempA = tempB;
+                    else
+                    {
+                        tempA = tempB;
+                    }
                 }
             }
-            catch
+            catch (Exception ex)
             {
+                MessageBox.Show("保存文件失败，详细信息：" + ex.Message);
                 return false;
             }
             return true;           
