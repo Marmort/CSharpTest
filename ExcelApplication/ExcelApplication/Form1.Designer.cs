@@ -215,7 +215,7 @@
             this.txtPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.txtPath.Location = new System.Drawing.Point(71, 443);
             this.txtPath.Name = "txtPath";
-            this.txtPath.Size = new System.Drawing.Size(370, 21);
+            this.txtPath.Size = new System.Drawing.Size(446, 21);
             this.txtPath.TabIndex = 3;
             this.txtPath.DoubleClick += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -227,9 +227,9 @@
             // 
             this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(494, 443);
+            this.comboBox1.Location = new System.Drawing.Point(576, 443);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(137, 20);
+            this.comboBox1.Size = new System.Drawing.Size(140, 20);
             this.comboBox1.TabIndex = 4;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
@@ -237,7 +237,7 @@
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(447, 446);
+            this.label2.Location = new System.Drawing.Point(523, 446);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(47, 12);
             this.label2.TabIndex = 5;
@@ -247,7 +247,7 @@
             // 
             this.btnLoadData.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnLoadData.Enabled = false;
-            this.btnLoadData.Location = new System.Drawing.Point(637, 441);
+            this.btnLoadData.Location = new System.Drawing.Point(722, 441);
             this.btnLoadData.Name = "btnLoadData";
             this.btnLoadData.Size = new System.Drawing.Size(75, 23);
             this.btnLoadData.TabIndex = 6;
