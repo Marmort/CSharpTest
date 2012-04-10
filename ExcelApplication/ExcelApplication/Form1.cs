@@ -195,12 +195,12 @@ namespace ExcelApplication
                     }
                 }
 
-                string sheetName = "W" + comboBox1.SelectedItem.ToString();
+                string sheetName = "Z" + comboBox1.SelectedItem.ToString();
                 for (int i = 0; i < comboBox1.Items.Count; i++)
                 {
                     if (sheetName.GetHashCode() == comboBox1.GetItemText(comboBox1.Items[i]).GetHashCode())
                     {
-                        sheetName += "W";
+                        sheetName += "Z";
                     }
                 }                
                 
@@ -282,7 +282,7 @@ namespace ExcelApplication
             int selectCol = 4;
             if (dataTotal(selectCol))
                 MessageBox.Show("数据处理完毕");
-        }
+        }      
 
     }
 }
