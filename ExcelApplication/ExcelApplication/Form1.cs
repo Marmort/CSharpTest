@@ -1,15 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using System.Data.Common;
-using System.Data.OleDb;
-using System.IO;
-using OfficeOpenXml;
+using System.Drawing;
+using System.ComponentModel;
 
 namespace ExcelApplication
 {
@@ -19,27 +12,22 @@ namespace ExcelApplication
         {
             InitializeComponent();
         }
-        
+
         public static List<string> GetSheetNames(string path)
         {
-            List<string> sheets = new List<string>();
-            string connectionString = String.Format(@"Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0};Extended Properties=""Excel 8.0;HDR=YES;IMEX=1;""", path);
-            DbProviderFactory factory = DbProviderFactories.GetFactory("System.Data.OleDb");
-            DbConnection connection = factory.CreateConnection();
-            connection.ConnectionString = connectionString;
-            connection.Open();
-            System.Data.DataTable tbl = connection.GetSchema("Tables");
-            connection.Close();
-            foreach (DataRow row in tbl.Rows)
+            List<string> ary = new List<string>();
+            Object refmissing = System.Reflection.Missing.Value;
+            Microsoft.Office.Interop.Excel._Application exc = new Microsoft.Office.Interop.Excel.Application();
+            exc.Visible = false;
+            Microsoft.Office.Interop.Excel.Workbooks workbooks = exc.Workbooks;
+            workbooks._Open(path, refmissing, refmissing, refmissing, refmissing, refmissing, refmissing, refmissing, refmissing, refmissing, refmissing, refmissing, refmissing);
+            for (int i = 0; i < exc.Worksheets.Count; i++)
             {
-                string sheetName = (string)row["TABLE_NAME"];
-                if (sheetName.EndsWith("$"))
-                {
-                    sheetName = sheetName.Substring(0, sheetName.Length - 1);
-                }
-                sheets.Add(sheetName);
+                Microsoft.Office.Interop.Excel.Worksheet sheet = (Microsoft.Office.Interop.Excel.Worksheet)exc.Worksheets.get_Item(i + 1);
+                ary.Add(sheet.Name.ToString());
             }
-            return sheets;
+            exc.Application.Quit();
+            return ary;
         }
 
         public bool dataTotal(int col)
@@ -197,12 +185,12 @@ namespace ExcelApplication
                     }
                 }
 
-                string sheetName = "Z" + comboBox1.SelectedItem.ToString();
+                string sheetName = comboBox1.SelectedItem.ToString();
                 for (int i = 0; i < comboBox1.Items.Count; i++)
                 {
                     if (sheetName.GetHashCode() == comboBox1.GetItemText(comboBox1.Items[i]).GetHashCode())
                     {
-                        sheetName += "Z";
+                        sheetName += " 2";
                     }
                 }                
                 
