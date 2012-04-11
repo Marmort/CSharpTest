@@ -46,7 +46,7 @@ namespace ExcelLib
                 if (value != currentSheetIndex)
                 {
                     if (value >= sheetCount)
-                        throw new Exception("工作表序号超出范围");
+                        throw new Exception("Beyond the scope of work table serial number!");
                     currentSheetIndex = value;
                     currentSheet = book.Worksheets[currentSheetIndex + 1];
                 }
@@ -71,7 +71,7 @@ namespace ExcelLib
             }
             catch (Exception ex)
             {
-                throw new Exception("打开文件失败，详细信息：" + ex.Message);
+                throw new Exception("Open file fail,information: " + ex.Message);
             }
             return true;
         }
@@ -109,7 +109,7 @@ namespace ExcelLib
             }
             catch (Exception ex)
             {
-                throw new Exception("保存文件失败，详细信息：" + ex.Message);
+                throw new Exception("Save file fail,information: " + ex.Message);
             }
            return true;
         }

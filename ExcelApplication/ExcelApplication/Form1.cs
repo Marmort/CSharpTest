@@ -16,11 +16,11 @@ namespace ExcelApplication
         public static List<string> GetSheetNames(string path)
         {
             List<string> ary = new List<string>();
-            Object refmissing = System.Reflection.Missing.Value;
+            Object missing = System.Reflection.Missing.Value;
             Microsoft.Office.Interop.Excel._Application exc = new Microsoft.Office.Interop.Excel.Application();
             exc.Visible = false;
             Microsoft.Office.Interop.Excel.Workbooks workbooks = exc.Workbooks;
-            workbooks._Open(path, refmissing, refmissing, refmissing, refmissing, refmissing, refmissing, refmissing, refmissing, refmissing, refmissing, refmissing, refmissing);
+            workbooks._Open(path, missing, missing, missing, missing, missing, missing, missing, missing, missing, missing, missing, missing);
             for (int i = 0; i < exc.Worksheets.Count; i++)
             {
                 Microsoft.Office.Interop.Excel.Worksheet sheet = (Microsoft.Office.Interop.Excel.Worksheet)exc.Worksheets.get_Item(i + 1);
@@ -61,7 +61,7 @@ namespace ExcelApplication
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error");
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
             return true;           
@@ -99,7 +99,7 @@ namespace ExcelApplication
             }
             catch
             {
-                MessageBox.Show("File Not Found!", "Error");
+                MessageBox.Show("File Not Found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
         }
@@ -110,9 +110,9 @@ namespace ExcelApplication
             {
                 ExcelLib.IExcel tmp = ExcelLib.PreExcel.GetExcel(txtPath.Text);
                 if (tmp == null)
-                    MessageBox.Show("File Not Found!", "Error");
+                    MessageBox.Show("File Not Found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 if (!tmp.Open())
-                    MessageBox.Show("File Not Found!", "Error");
+                    MessageBox.Show("File Not Found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 tmp.CurrentSheetIndex = comboBox1.SelectedIndex;
                 int columnCount = tmp.GetColumnCount();
@@ -144,7 +144,7 @@ namespace ExcelApplication
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error");
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             btnLoadData.Enabled = false;
         }
@@ -165,7 +165,7 @@ namespace ExcelApplication
             {
                 ExcelLib.IExcel tmp = ExcelLib.PreExcel.GetExcel(txtPath.Text);
                 if (tmp == null)
-                    MessageBox.Show("File Not Found!", "Error");
+                    MessageBox.Show("File Not Found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 int columnCount = dataGridView1.ColumnCount;
                 int rowCount = dataGridView1.RowCount;
@@ -190,20 +190,20 @@ namespace ExcelApplication
                 {
                     if (sheetName.GetHashCode() == comboBox1.GetItemText(comboBox1.Items[i]).GetHashCode())
                     {
-                        sheetName += " 2";
+                        sheetName += "(2)";
                     }
                 }                
                 
                 if (tmp.Save(sheetName, array))
                 {
                     comboBox1.DataSource = GetSheetNames(txtPath.Text);
-                    MessageBox.Show("File Save Success", "Information");
+                    MessageBox.Show("File Save Success!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 tmp.Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error");
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -247,7 +247,7 @@ namespace ExcelApplication
                 dataGridView1.Rows[i].Cells[2].Value  = (rowValue[i].Length > 6) ? rowValue[i].Substring(0, 6) : rowValue[i];
             }
             dataGridView1.Columns[2].HeaderCell.Value = "铸锭编号";
-            MessageBox.Show("Delete And Sort Records Success", "Information");
+            MessageBox.Show("Delete And Sort Records Success!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             //dataGridView1.Columns[3].DefaultCellStyle.Format = "c";
         }
@@ -256,21 +256,21 @@ namespace ExcelApplication
         {
             int selectCol = 3;
             if (dataTotal(selectCol))
-                MessageBox.Show("Processed Data Success", "Information");
+                MessageBox.Show("Processed Data Success!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void ingotToolStripMenuItem_Click(object sender, EventArgs e)
         {
             int selectCol = 2;
             if (dataTotal(selectCol))
-                MessageBox.Show("Processed Data Success", "Information");
+                MessageBox.Show("Processed Data Success!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void cuttingToolStripMenuItem_Click(object sender, EventArgs e)
         {
             int selectCol = 4;
             if (dataTotal(selectCol))
-                MessageBox.Show("Processed Data Success", "Information");
+                MessageBox.Show("Processed Data Success!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }   
 
     }
