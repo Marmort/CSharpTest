@@ -46,8 +46,9 @@ namespace ExcelApplication
                     string tempB = (string)dataGridView1.Rows[i].Cells[col].Value;
                     if (tempA.GetHashCode() == tempB.GetHashCode())
                     {
-                        for (int j = 5; j < columnCount; j++)
+                        for (int j = 6; j < columnCount; j++)
                         {
+                            if (j == 7) continue;
                             total = int.Parse(dataGridView1.Rows[i].Cells[j].Value.ToString()) + int.Parse(dataGridView1.Rows[i + 1].Cells[j].Value.ToString());                    
                             dataGridView1.Rows[i].Cells[j].Value = total.ToString();
                         }
@@ -117,25 +118,25 @@ namespace ExcelApplication
                 tmp.CurrentSheetIndex = comboBox1.SelectedIndex;
                 int columnCount = tmp.GetColumnCount();
                 dataGridView1.ColumnCount = columnCount;
-                int rowCount = tmp.GetRowCount();
+                int rowCount = tmp.GetRowCount() - 1;
                 dataGridView1.RowCount = rowCount;
-
-                for (int i = 0; i < columnCount; i++)
+                
+                for (int j = 0; j < columnCount; j++)
                 {
-                    dataGridView1.Columns[i].HeaderCell.Value = tmp.GetCellValue(1, i + 1);
+                    dataGridView1.Columns[j].HeaderCell.Value = tmp.GetCellValue(2, j + 1);
                 }
 
-                for (int i = 0; i < rowCount; i++)
+                for (int i = 0; i < rowCount-1; i++)
                 {
                     for (int j = 0; j < columnCount; j++)
                     {
-                        if (string.IsNullOrEmpty(tmp.GetCellValue(i + 2, j + 1)))
+                        if (string.IsNullOrEmpty(tmp.GetCellValue(i + 3, j + 1)))
                         {
                             dataGridView1.Rows[i].Cells[j].Value = "0";
                         }
                         else
                         {
-                            dataGridView1.Rows[i].Cells[j].Value = tmp.GetCellValue(i + 2, j + 1);
+                            dataGridView1.Rows[i].Cells[j].Value = tmp.GetCellValue(i + 3, j + 1);
                         }
                     }
                 }
@@ -146,6 +147,7 @@ namespace ExcelApplication
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            
             btnLoadData.Enabled = false;
         }
       
@@ -221,35 +223,33 @@ namespace ExcelApplication
         private void removeColumnToolStripMenuItem_Click(object sender, EventArgs e)
         {
             int columnCount = dataGridView1.ColumnCount;
-
-            if (columnCount != 66)
-                return;
-
-            for (int i = 65; i > 48; i--)
-            {
-                dataGridView1.Columns.RemoveAt(i);
-            }
-            for (int i = 47; i > 12; )
-            {
-                dataGridView1.Columns.RemoveAt(i);
-                i -= 2;
-            }
-            dataGridView1.Columns.RemoveAt(7);
-            dataGridView1.Columns.RemoveAt(5);
-
             int rowCount = dataGridView1.RowCount;
             string[] rowValue = new string[rowCount];
 
-            for (int i = 0; i < rowCount; i++)
+            if (columnCount > 66)
             {
-                rowValue[i] = (string)dataGridView1.Rows[i].Cells[1].Value;
-                rowValue[i] = rowValue[i].TrimStart('M');
-                dataGridView1.Rows[i].Cells[2].Value  = (rowValue[i].Length > 6) ? rowValue[i].Substring(0, 6) : rowValue[i];
-            }
-            dataGridView1.Columns[2].HeaderCell.Value = "铸锭编号";
-            MessageBox.Show("Delete And Sort Records Success!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                for (int i = columnCount - 1; i > 48; i--)
+                {
+                    dataGridView1.Columns.RemoveAt(i);
+                }
+                for (int i = 47; i > 12; i -= 2)
+                {
+                    for (int j = 0; j < rowCount-1; j++)
+                    {
+                        dataGridView1.Rows[j].Cells[i].Value = "0";
+                    }
+                }
 
-            //dataGridView1.Columns[3].DefaultCellStyle.Format = "c";
+                for (int i = 0; i < rowCount-1; i++)
+                {
+                    rowValue[i] = (string)dataGridView1.Rows[i].Cells[1].Value;
+                    rowValue[i] = rowValue[i].TrimStart('M');
+                    dataGridView1.Rows[i].Cells[2].Value = (rowValue[i].Length > 6) ? rowValue[i].Substring(0, 6) : rowValue[i];
+                }
+                dataGridView1.Columns[2].HeaderCell.Value = "铸锭编号";
+            }
+
+            MessageBox.Show("Records Delete And Sort Success!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void dateToolStripMenuItem_Click(object sender, EventArgs e)
