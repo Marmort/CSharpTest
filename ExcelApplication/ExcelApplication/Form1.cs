@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Drawing;
 using System.ComponentModel;
+using Microsoft.Office.Interop.Excel;
+using System.Reflection;
 
 namespace ExcelApplication
 {
@@ -15,19 +17,19 @@ namespace ExcelApplication
 
         public static List<string> GetSheetNames(string path)
         {
-            List<string> ary = new List<string>();
-            Object missing = System.Reflection.Missing.Value;
-            Microsoft.Office.Interop.Excel._Application exc = new Microsoft.Office.Interop.Excel.Application();
-            exc.Visible = false;
-            Microsoft.Office.Interop.Excel.Workbooks workbooks = exc.Workbooks;
+            List<string> sheets = new List<string>();
+            Object missing = Missing.Value;
+            _Application excel = new Microsoft.Office.Interop.Excel.Application();
+            excel.Visible = false;
+            Workbooks workbooks = excel.Workbooks;
             workbooks._Open(path, missing, missing, missing, missing, missing, missing, missing, missing, missing, missing, missing, missing);
-            for (int i = 0; i < exc.Worksheets.Count; i++)
+            for (int i = 0; i < excel.Worksheets.Count; i++)
             {
-                Microsoft.Office.Interop.Excel.Worksheet sheet = (Microsoft.Office.Interop.Excel.Worksheet)exc.Worksheets.get_Item(i + 1);
-                ary.Add(sheet.Name.ToString());
+                Worksheet sheet = (Worksheet)excel.Worksheets.get_Item(i + 1);
+                sheets.Add(sheet.Name.ToString());
             }
-            exc.Application.Quit();
-            return ary;
+            excel.Application.Quit();
+            return sheets;
         }
 
         public bool dataTotal(int col)
@@ -39,11 +41,12 @@ namespace ExcelApplication
                 int columnCount = dataGridView1.ColumnCount;
                 int rowCount = dataGridView1.RowCount;
 
-                int total = 0;
                 string tempA = (string)dataGridView1.Rows[rowCount - 2].Cells[col].Value;
+                string tempB;
+                int total = 0;
                 for (int i = rowCount - 3; i >= 0; i--)
                 {
-                    string tempB = (string)dataGridView1.Rows[i].Cells[col].Value;
+                    tempB = (string)dataGridView1.Rows[i].Cells[col].Value;
                     if (tempA.GetHashCode() == tempB.GetHashCode())
                     {
                         for (int j = 6; j < columnCount; j++)
@@ -222,7 +225,7 @@ namespace ExcelApplication
             int rowCount = dataGridView1.RowCount;
             string[] rowValue = new string[rowCount];
 
-            if (columnCount > 66)
+            if (columnCount > 50)
             {
                 for (int i = columnCount - 1; i > 49; i--)
                 {
