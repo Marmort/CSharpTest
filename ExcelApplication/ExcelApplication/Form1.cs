@@ -147,7 +147,8 @@ namespace ExcelApplication
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            
+            txtPath.Text = "";
+            comboBox1.DataSource = null;
             btnLoadData.Enabled = false;
         }
       
@@ -155,12 +156,7 @@ namespace ExcelApplication
         {
             MessageBox.Show("http://epplus.codeplex.com/discussions");
         }
-
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            btnLoadData.Enabled = true;
-        }
-
+        
         private void saveToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             try
@@ -228,11 +224,11 @@ namespace ExcelApplication
 
             if (columnCount > 66)
             {
-                for (int i = columnCount - 1; i > 48; i--)
+                for (int i = columnCount - 1; i > 49; i--)
                 {
                     dataGridView1.Columns.RemoveAt(i);
                 }
-                for (int i = 47; i > 12; i -= 2)
+                for (int i = 49; i > 12; i -= 2)
                 {
                     for (int j = 0; j < rowCount-1; j++)
                     {
