@@ -74,7 +74,7 @@ namespace ExcelLib
                 throw new Exception("Open file fail,information: " + ex.Message);
             }
             return true;
-        }
+        }        
 
         public bool Save(string newSheetName, string[,] array)
         {
@@ -113,7 +113,24 @@ namespace ExcelLib
             }
            return true;
         }
-        
+
+        public string[] GetWorkSheets()
+        {
+            string[] sheets = new string[book.Worksheets.Count];
+            try
+            {
+                for (int i = 0; i < book.Worksheets.Count; i++)
+                {
+                    sheets[i] = book.Worksheets[i + 1].ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Read Sheets fail,information: " + ex.Message);
+            }
+            return sheets;
+        }
+
         public int GetRowCount()
         {
             if (currentSheet == null) return 0;

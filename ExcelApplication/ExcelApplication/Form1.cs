@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Drawing;
 using System.ComponentModel;
-using Microsoft.Office.Interop.Excel;
 using System.Reflection;
 
 namespace ExcelApplication
@@ -13,23 +12,6 @@ namespace ExcelApplication
         public Form1()
         {
             InitializeComponent();
-        }
-
-        public static List<string> GetSheetNames(string path)
-        {
-            List<string> sheets = new List<string>();
-            Object missing = Missing.Value;
-            _Application excel = new Microsoft.Office.Interop.Excel.Application();
-            excel.Visible = false;
-            Workbooks workbooks = excel.Workbooks;
-            workbooks._Open(path, missing, missing, missing, missing, missing, missing, missing, missing, missing, missing, missing, missing);
-            for (int i = 0; i < excel.Worksheets.Count; i++)
-            {
-                Worksheet sheet = (Worksheet)excel.Worksheets.get_Item(i + 1);
-                sheets.Add(sheet.Name.ToString());
-            }
-            excel.Application.Quit();
-            return sheets;
         }
 
         public bool dataTotal(int col)
@@ -89,7 +71,12 @@ namespace ExcelApplication
             {
                 return;
             }
-            comboBox1.DataSource = GetSheetNames(txtPath.Text);
+            ExcelLib.IExcel tmp = ExcelLib.PreExcel.GetExcel(txtPath.Text);
+            if (tmp == null)
+                MessageBox.Show("File Not Found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            if (!tmp.Open())
+                MessageBox.Show("File Not Found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            comboBox1.DataSource = tmp.GetWorkSheets();
             btnLoadData.Enabled = true;
         }
 
@@ -196,10 +183,7 @@ namespace ExcelApplication
                 }                
                 
                 if (tmp.Save(sheetName, array))
-                {
-                    comboBox1.DataSource = GetSheetNames(txtPath.Text);
                     MessageBox.Show("File Save Success!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
                 tmp.Close();
             }
             catch (Exception ex)

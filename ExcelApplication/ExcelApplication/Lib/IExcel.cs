@@ -22,6 +22,8 @@ namespace ExcelLib
         /// <param name="newSheetName">新表名</param>
         /// <param name="array">需保存的二维数组</param>
         bool Save(string newSheetName, string[,] array);
+        /// <summary> 获取当前工作表名称 </summary>
+        string[] GetWorkSheets();
         /// <summary> 获取当前工作表中行数 </summary>
         int GetRowCount();
         /// <summary> 获取当前工作表中列数 </summary>
