@@ -120,7 +120,7 @@
             // removeColumnToolStripMenuItem
             // 
             this.removeColumnToolStripMenuItem.Name = "removeColumnToolStripMenuItem";
-            this.removeColumnToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.removeColumnToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
             this.removeColumnToolStripMenuItem.Text = "整理列";
             this.removeColumnToolStripMenuItem.Click += new System.EventHandler(this.removeColumnToolStripMenuItem_Click);
             // 
@@ -132,34 +132,34 @@
             this.cuttingToolStripMenuItem,
             this.cutNOToolStripMenuItem});
             this.statisticsToolStripMenuItem.Name = "statisticsToolStripMenuItem";
-            this.statisticsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.statisticsToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
             this.statisticsToolStripMenuItem.Text = "统计";
             // 
             // dateToolStripMenuItem
             // 
             this.dateToolStripMenuItem.Name = "dateToolStripMenuItem";
-            this.dateToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.dateToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
             this.dateToolStripMenuItem.Text = "按日期";
             this.dateToolStripMenuItem.Click += new System.EventHandler(this.dateToolStripMenuItem_Click);
             // 
             // ingotToolStripMenuItem
             // 
             this.ingotToolStripMenuItem.Name = "ingotToolStripMenuItem";
-            this.ingotToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.ingotToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
             this.ingotToolStripMenuItem.Text = "按铸锭编号";
             this.ingotToolStripMenuItem.Click += new System.EventHandler(this.ingotToolStripMenuItem_Click);
             // 
             // cuttingToolStripMenuItem
             // 
             this.cuttingToolStripMenuItem.Name = "cuttingToolStripMenuItem";
-            this.cuttingToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.cuttingToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
             this.cuttingToolStripMenuItem.Text = "按切割号";
             this.cuttingToolStripMenuItem.Click += new System.EventHandler(this.cuttingToolStripMenuItem_Click);
             // 
             // cutNOToolStripMenuItem
             // 
             this.cutNOToolStripMenuItem.Name = "cutNOToolStripMenuItem";
-            this.cutNOToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.cutNOToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
             this.cutNOToolStripMenuItem.Text = "按机器号";
             this.cutNOToolStripMenuItem.Click += new System.EventHandler(this.cutNOToolStripMenuItem_Click);
             // 
@@ -254,7 +254,6 @@
             // btnLoadData
             // 
             this.btnLoadData.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnLoadData.Enabled = false;
             this.btnLoadData.Location = new System.Drawing.Point(722, 441);
             this.btnLoadData.Name = "btnLoadData";
             this.btnLoadData.Size = new System.Drawing.Size(75, 23);
