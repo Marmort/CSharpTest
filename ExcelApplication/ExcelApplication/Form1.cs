@@ -180,6 +180,7 @@ namespace ExcelApplication
         
         private void saveToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            btnLoadData.Enabled = false;
             try
             {
                 ExcelLib.IExcel tmp = ExcelLib.PreExcel.GetExcel(txtPath.Text);
@@ -216,6 +217,8 @@ namespace ExcelApplication
                 if (tmp.Save(sheetName, array))
                     MessageBox.Show("File Save Success!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 tmp.Close();
+                txtPath.Text = "";
+                comboBox1.DataSource = null;
             }
             catch (Exception ex)
             {
