@@ -60,7 +60,7 @@ namespace ExcelApplication
                     if (tempD == 0)
                         dataGridView1.Rows[j].Cells[13].Value = "0";
                     else
-                        dataGridView1.Rows[j].Cells[13].Value = tempC * 10000 / tempD / 100.0;
+                        dataGridView1.Rows[j].Cells[13].Value = (tempC * 10000 / tempD / 100.0).ToString();
                 }
 
                 for (int i = 15; i < 50; i += 2)
@@ -72,7 +72,7 @@ namespace ExcelApplication
                         if (tempD == 0)
                             dataGridView1.Rows[j].Cells[i].Value = "0";
                         else
-                            dataGridView1.Rows[j].Cells[i].Value = tempC * 10000 / tempD / 100.0;
+                            dataGridView1.Rows[j].Cells[i].Value = (tempC * 10000 / tempD / 100.0).ToString();
                     }
                 }
             }
@@ -262,7 +262,7 @@ namespace ExcelApplication
                     if (tempA == 0)
                         dataGridView1.Rows[j].Cells[13].Value = "0";
                     else
-                        dataGridView1.Rows[j].Cells[13].Value =  tempB* 10000 / tempA/100.0;
+                        dataGridView1.Rows[j].Cells[13].Value =  (tempB* 10000 / tempA/100.0).ToString();
                 }
                
                 for (int i = 15; i < 50; i += 2)
@@ -274,7 +274,7 @@ namespace ExcelApplication
                         if (tempA == 0)
                             dataGridView1.Rows[j].Cells[i].Value = "0";
                         else
-                            dataGridView1.Rows[j].Cells[i].Value = tempB * 10000 / tempA/100.0;
+                            dataGridView1.Rows[j].Cells[i].Value = (tempB * 10000 / tempA/100.0).ToString();
                     }
                 }                
             }
