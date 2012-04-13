@@ -31,10 +31,15 @@ namespace ExcelApplication
                     tempB = (string)dataGridView1.Rows[i].Cells[col].Value;
                     if (tempA.GetHashCode() == tempB.GetHashCode())
                     {
-                        for (int j = 6; j < columnCount; j++)
+                        for (int j = 6; j < 12; j ++)
                         {
                             if (j == 7) continue;
-                            total = int.Parse(dataGridView1.Rows[i].Cells[j].Value.ToString()) + int.Parse(dataGridView1.Rows[i + 1].Cells[j].Value.ToString());                    
+                            total = int.Parse(dataGridView1.Rows[i].Cells[j].Value.ToString()) + int.Parse(dataGridView1.Rows[i + 1].Cells[j].Value.ToString());
+                            dataGridView1.Rows[i].Cells[j].Value = total.ToString();
+                        }
+                        for (int j = 12; j < columnCount; j += 2)
+                        {
+                            total = int.Parse(dataGridView1.Rows[i].Cells[j].Value.ToString()) + int.Parse(dataGridView1.Rows[i + 1].Cells[j].Value.ToString());
                             dataGridView1.Rows[i].Cells[j].Value = total.ToString();
                         }
                         dataGridView1.Rows.RemoveAt(i + 1);
@@ -42,6 +47,32 @@ namespace ExcelApplication
                     else
                     {
                         tempA = tempB;
+                    }
+                }
+
+                columnCount = dataGridView1.ColumnCount;
+                rowCount = dataGridView1.RowCount;
+
+                for (int j = 0; j < rowCount - 1; j++)
+                {
+                    int tempD = int.Parse(dataGridView1.Rows[j].Cells[6].Value.ToString());
+                    int tempC = int.Parse(dataGridView1.Rows[j].Cells[12].Value.ToString());
+                    if (tempD == 0)
+                        dataGridView1.Rows[j].Cells[13].Value = "0";
+                    else
+                        dataGridView1.Rows[j].Cells[13].Value = tempC * 10000 / tempD / 100.0;
+                }
+
+                for (int i = 15; i < 50; i += 2)
+                {
+                    for (int j = 0; j < rowCount - 1; j++)
+                    {
+                        int tempD = int.Parse(dataGridView1.Rows[j].Cells[9].Value.ToString());
+                        int tempC = int.Parse(dataGridView1.Rows[j].Cells[i - 1].Value.ToString());
+                        if (tempD == 0)
+                            dataGridView1.Rows[j].Cells[i].Value = "0";
+                        else
+                            dataGridView1.Rows[j].Cells[i].Value = tempC * 10000 / tempD / 100.0;
                     }
                 }
             }
@@ -215,21 +246,37 @@ namespace ExcelApplication
                 {
                     dataGridView1.Columns.RemoveAt(i);
                 }
-                for (int i = 49; i > 12; i -= 2)
-                {
-                    for (int j = 0; j < rowCount-1; j++)
-                    {
-                        dataGridView1.Rows[j].Cells[i].Value = "0";
-                    }
-                }
 
-                for (int i = 0; i < rowCount-1; i++)
+                for (int i = 0; i < rowCount - 1; i++)
                 {
                     rowValue[i] = (string)dataGridView1.Rows[i].Cells[1].Value;
                     rowValue[i] = rowValue[i].TrimStart('M');
                     dataGridView1.Rows[i].Cells[2].Value = (rowValue[i].Length > 6) ? rowValue[i].Substring(0, 6) : rowValue[i];
                 }
                 dataGridView1.Columns[2].HeaderCell.Value = "铸锭编号";
+
+                for (int j = 0; j < rowCount-1; j++)
+                {
+                    int tempA = int.Parse(dataGridView1.Rows[j].Cells[6].Value.ToString());
+                    int tempB = int.Parse(dataGridView1.Rows[j].Cells[12].Value.ToString());
+                    if (tempA == 0)
+                        dataGridView1.Rows[j].Cells[13].Value = "0";
+                    else
+                        dataGridView1.Rows[j].Cells[13].Value =  tempB* 10000 / tempA/100.0;
+                }
+               
+                for (int i = 15; i < 50; i += 2)
+                {
+                    for (int j = 0; j < rowCount-1; j++)
+                    {
+                        int tempA = int.Parse(dataGridView1.Rows[j].Cells[9].Value.ToString());
+                        int tempB = int.Parse(dataGridView1.Rows[j].Cells[i - 1].Value.ToString());
+                        if (tempA == 0)
+                            dataGridView1.Rows[j].Cells[i].Value = "0";
+                        else
+                            dataGridView1.Rows[j].Cells[i].Value = tempB * 10000 / tempA/100.0;
+                    }
+                }                
             }
 
             MessageBox.Show("Records Delete And Sort Success!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -252,6 +299,13 @@ namespace ExcelApplication
         private void cuttingToolStripMenuItem_Click(object sender, EventArgs e)
         {
             int selectCol = 4;
+            if (dataTotal(selectCol))
+                MessageBox.Show("Processed Data Success!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void cutNOToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int selectCol = 5;
             if (dataTotal(selectCol))
                 MessageBox.Show("Processed Data Success!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }   

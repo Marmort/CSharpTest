@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -52,6 +52,7 @@
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.btnLoadData = new System.Windows.Forms.Button();
+            this.cutNOToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -83,27 +84,27 @@
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.newToolStripMenuItem.Text = "New";
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem1
             // 
             this.saveToolStripMenuItem1.Name = "saveToolStripMenuItem1";
-            this.saveToolStripMenuItem1.Size = new System.Drawing.Size(100, 22);
+            this.saveToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.saveToolStripMenuItem1.Text = "Save";
             this.saveToolStripMenuItem1.Click += new System.EventHandler(this.saveToolStripMenuItem1_Click);
             // 
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.closeToolStripMenuItem.Text = "Close";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
@@ -119,8 +120,8 @@
             // removeColumnToolStripMenuItem
             // 
             this.removeColumnToolStripMenuItem.Name = "removeColumnToolStripMenuItem";
-            this.removeColumnToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
-            this.removeColumnToolStripMenuItem.Text = "RemoveColumn";
+            this.removeColumnToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.removeColumnToolStripMenuItem.Text = "整理列";
             this.removeColumnToolStripMenuItem.Click += new System.EventHandler(this.removeColumnToolStripMenuItem_Click);
             // 
             // statisticsToolStripMenuItem
@@ -128,30 +129,31 @@
             this.statisticsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.dateToolStripMenuItem,
             this.ingotToolStripMenuItem,
-            this.cuttingToolStripMenuItem});
+            this.cuttingToolStripMenuItem,
+            this.cutNOToolStripMenuItem});
             this.statisticsToolStripMenuItem.Name = "statisticsToolStripMenuItem";
-            this.statisticsToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
-            this.statisticsToolStripMenuItem.Text = "Statistics";
+            this.statisticsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.statisticsToolStripMenuItem.Text = "统计";
             // 
             // dateToolStripMenuItem
             // 
             this.dateToolStripMenuItem.Name = "dateToolStripMenuItem";
-            this.dateToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
-            this.dateToolStripMenuItem.Text = "Date";
+            this.dateToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.dateToolStripMenuItem.Text = "按日期";
             this.dateToolStripMenuItem.Click += new System.EventHandler(this.dateToolStripMenuItem_Click);
             // 
             // ingotToolStripMenuItem
             // 
             this.ingotToolStripMenuItem.Name = "ingotToolStripMenuItem";
-            this.ingotToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
-            this.ingotToolStripMenuItem.Text = "Ingot";
+            this.ingotToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.ingotToolStripMenuItem.Text = "按铸锭炉号";
             this.ingotToolStripMenuItem.Click += new System.EventHandler(this.ingotToolStripMenuItem_Click);
             // 
             // cuttingToolStripMenuItem
             // 
             this.cuttingToolStripMenuItem.Name = "cuttingToolStripMenuItem";
-            this.cuttingToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
-            this.cuttingToolStripMenuItem.Text = "Cutting";
+            this.cuttingToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.cuttingToolStripMenuItem.Text = "按切割号";
             this.cuttingToolStripMenuItem.Click += new System.EventHandler(this.cuttingToolStripMenuItem_Click);
             // 
             // toolToolStripMenuItem
@@ -186,8 +188,8 @@
             // 
             // dataGridView1
             // 
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle8;
             this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
@@ -206,16 +208,16 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(12, 446);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(59, 12);
+            this.label1.Size = new System.Drawing.Size(89, 12);
             this.label1.TabIndex = 2;
-            this.label1.Text = "文件路径:";
+            this.label1.Text = "读/写文件路径:";
             // 
             // txtPath
             // 
             this.txtPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.txtPath.Location = new System.Drawing.Point(71, 443);
+            this.txtPath.Location = new System.Drawing.Point(107, 443);
             this.txtPath.Name = "txtPath";
-            this.txtPath.Size = new System.Drawing.Size(446, 21);
+            this.txtPath.Size = new System.Drawing.Size(410, 21);
             this.txtPath.TabIndex = 3;
             this.txtPath.DoubleClick += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -253,6 +255,13 @@
             this.btnLoadData.Text = "显示数据";
             this.btnLoadData.UseVisualStyleBackColor = true;
             this.btnLoadData.Click += new System.EventHandler(this.btnLoadData_Click);
+            // 
+            // cutNOToolStripMenuItem
+            // 
+            this.cutNOToolStripMenuItem.Name = "cutNOToolStripMenuItem";
+            this.cutNOToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.cutNOToolStripMenuItem.Text = "按机器号";
+            this.cutNOToolStripMenuItem.Click += new System.EventHandler(this.cutNOToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -302,6 +311,7 @@
         private System.Windows.Forms.ToolStripMenuItem dateToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ingotToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cuttingToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cutNOToolStripMenuItem;
     }
 }
 
