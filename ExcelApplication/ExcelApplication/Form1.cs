@@ -14,6 +14,7 @@ namespace ExcelApplication
             InitializeComponent();
         }
 
+        #region Methods
         public bool dataTotal(int col)
         {
             try
@@ -91,6 +92,8 @@ namespace ExcelApplication
             return false;           
         }
 
+        #endregion
+
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -104,17 +107,20 @@ namespace ExcelApplication
             if (dlgResult == DialogResult.OK)
             {
                 txtPath.Text = dlg.FileName;
+                ExcelLib.IExcel tmp = ExcelLib.PreExcel.GetExcel(txtPath.Text);
+                if (tmp == null & !tmp.Open())
+                {
+                    MessageBox.Show("File Not Found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                comboBox1.DataSource = tmp.GetWorkSheets();
+                tmp.Close();
+                btnLoadData.Enabled = true;
             }
             else
             {
                 return;
-            }
-            ExcelLib.IExcel tmp = ExcelLib.PreExcel.GetExcel(txtPath.Text);
-            if (tmp == null)
-                MessageBox.Show("File Not Found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            if (!tmp.Open())
-                MessageBox.Show("File Not Found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            comboBox1.DataSource = tmp.GetWorkSheets();
+            }            
         }
 
         private void calculatorToolStripMenuItem_Click(object sender, EventArgs e)
@@ -137,10 +143,11 @@ namespace ExcelApplication
             try
             {
                 ExcelLib.IExcel tmp = ExcelLib.PreExcel.GetExcel(txtPath.Text);
-                if (tmp == null)
+                if (tmp == null & !tmp.Open())
+                {
                     MessageBox.Show("File Not Found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                if (!tmp.Open())
-                    MessageBox.Show("File Not Found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
                 tmp.CurrentSheetIndex = comboBox1.SelectedIndex;
                 int columnCount = tmp.GetColumnCount();
@@ -148,42 +155,42 @@ namespace ExcelApplication
                 int rowCount = tmp.GetRowCount() - 1;
                 dataGridView1.RowCount = rowCount;
                 
-                for (int j = 0; j < columnCount; j++)
+                for (int i = 0; i < columnCount; i++)
                 {
-                    dataGridView1.Columns[j].HeaderCell.Value = tmp.GetCellValue(2, j + 1);
+                    dataGridView1.Columns[i].HeaderCell.Value = tmp.GetCellValue(2, i + 1);
                 }
 
-                for (int i = 0; i < rowCount-1; i++)
+                for (int j = 0; j < rowCount-1; j++)
                 {
-                    for (int j = 0; j < columnCount; j++)
+                    for (int i = 0; i < columnCount; i++)
                     {
-                        if (string.IsNullOrEmpty(tmp.GetCellValue(i + 3, j + 1)))
+                        if (string.IsNullOrEmpty(tmp.GetCellValue(j + 3, i + 1)))
                         {
-                            dataGridView1.Rows[i].Cells[j].Value = "0";
+                            dataGridView1.Rows[j].Cells[i].Value = "0";
                         }
                         else
                         {
-                            dataGridView1.Rows[i].Cells[j].Value = tmp.GetCellValue(i + 3, j + 1);
+                            dataGridView1.Rows[j].Cells[i].Value = tmp.GetCellValue(j + 3, i + 1);
                         }
                     }
                 }
 
                 tmp.Close();
 
-                string[] rowValue = new string[rowCount];
-                for (int i = 0; i < rowCount - 1; i++)
-                {
-                    rowValue[i] = (string)dataGridView1.Rows[i].Cells[1].Value;
-                    rowValue[i] = rowValue[i].TrimStart('M');
-                    dataGridView1.Rows[i].Cells[2].Value = (rowValue[i].Length > 6) ? rowValue[i].Substring(0, 6) : rowValue[i];
-                }
-                dataGridView1.Columns[2].HeaderCell.Value = "铸锭编号";                
+                //string[] rowValue = new string[rowCount];
+                //for (int i = 0; i < rowCount - 1; i++)
+                //{
+                //    rowValue[i] = (string)dataGridView1.Rows[i].Cells[1].Value;
+                //    rowValue[i] = rowValue[i].TrimStart('M');
+                //    dataGridView1.Rows[i].Cells[2].Value = (rowValue[i].Length > 6) ? rowValue[i].Substring(0, 6) : rowValue[i];
+                //}
+                //dataGridView1.Columns[2].HeaderCell.Value = "铸锭编号";
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            btnLoadData.Enabled = false;
+            //btnLoadData.Enabled = false;
         }
       
         private void codeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -316,7 +323,7 @@ namespace ExcelApplication
                 MessageBox.Show("Processed Data Success!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        private void cutNOToolStripMenuItem_Click(object sender, EventArgs e)
+        private void cutNoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             int selectCol = 5;
             if (dataTotal(selectCol))

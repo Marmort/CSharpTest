@@ -4,30 +4,31 @@ namespace ExcelLib
 {
     class PreExcel
     {
-        /// <param name="filePath">Excel文件路径</param>
+        /// <summary>
+        /// 文件类型检查
+        /// </summary>
+        /// <param name="filePath">路径和文件名</param>
         /// <returns></returns>
         public static IExcel GetExcel(string filePath)
         {
-            if (filePath.Trim() == "")
-                throw new Exception("文件名不能为空");
-
-            if (!filePath.Trim().EndsWith("xls") && !filePath.Trim().EndsWith("xlsx"))
-                throw new Exception("不支持该文件类型");
-
-            if (filePath.Trim().EndsWith("xls"))
+            try
             {
-                //IExcel res = new Excel03(filePath.Trim());
-                //return res;
-                throw new Exception("不支持Excel97~2003版本文件");
-                //TODO:未写代码
+                if (filePath.Trim() != "")
+                {
+                    IExcel res = null;
+                    if (filePath.Trim().EndsWith("xlsx"))
+                        res = new Excel2007(filePath.Trim());
+                    //else if (filePath.Trim().EndsWith("xls"))
+                    //    res = new Excel2003(filePath.Trim());
+                    return res;
+                }
+                else
+                    return null;
             }
-            else if (filePath.Trim().EndsWith("xlsx"))
+            catch (Exception ex)
             {
-                IExcel res = new Excel2007(filePath.Trim());
-                return res;
+                throw new Exception(ex.Message);
             }
-            else
-                return null;
         }
     }
 }
