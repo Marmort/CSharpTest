@@ -19,77 +19,71 @@ namespace ExcelApplication
         {
             try
             {
-                #region ingotTool
-                if (col == 2)
+                dataGridView1.Sort(dataGridView1.Columns[col], ListSortDirection.Ascending);
+
+                int columnCount = dataGridView1.ColumnCount;
+                int rowCount = dataGridView1.RowCount;
+
+                string tempA = (string)dataGridView1.Rows[rowCount - 2].Cells[col].Value;
+                string tempB;
+                int total = 0;
+                for (int i = rowCount - 3; i >= 0; i--)
                 {
-                    dataGridView1.Sort(dataGridView1.Columns[col], ListSortDirection.Ascending);
-
-                    int columnCount = dataGridView1.ColumnCount;
-                    int rowCount = dataGridView1.RowCount;
-
-                    string tempA = (string)dataGridView1.Rows[rowCount - 2].Cells[col].Value;
-                    string tempB;
-                    int total = 0;
-                    for (int i = rowCount - 3; i >= 0; i--)
+                    tempB = (string)dataGridView1.Rows[i].Cells[col].Value;
+                    if (tempA.GetHashCode() == tempB.GetHashCode())
                     {
-                        tempB = (string)dataGridView1.Rows[i].Cells[col].Value;
-                        if (tempA.GetHashCode() == tempB.GetHashCode())
+                        for (int j = 6; j < 12; j++)
                         {
-                            for (int j = 6; j < 12; j++)
-                            {
-                                if (j == 7) continue;
-                                total = int.Parse(dataGridView1.Rows[i].Cells[j].Value.ToString()) + int.Parse(dataGridView1.Rows[i + 1].Cells[j].Value.ToString());
-                                dataGridView1.Rows[i].Cells[j].Value = total.ToString();
-                            }
-                            for (int j = 12; j < columnCount; j += 2)
-                            {
-                                total = int.Parse(dataGridView1.Rows[i].Cells[j].Value.ToString()) + int.Parse(dataGridView1.Rows[i + 1].Cells[j].Value.ToString());
-                                dataGridView1.Rows[i].Cells[j].Value = total.ToString();
-                            }
-                            dataGridView1.Rows.RemoveAt(i + 1);
+                            if (j == 7) continue;
+                            total = int.Parse(dataGridView1.Rows[i].Cells[j].Value.ToString()) + int.Parse(dataGridView1.Rows[i + 1].Cells[j].Value.ToString());
+                            dataGridView1.Rows[i].Cells[j].Value = total.ToString();
                         }
-                        else
+                        for (int j = 12; j < 50; j += 2)
                         {
-                            tempA = tempB;
+                            if (j == 50) continue;
+                            total = int.Parse(dataGridView1.Rows[i].Cells[j].Value.ToString()) + int.Parse(dataGridView1.Rows[i + 1].Cells[j].Value.ToString());
+                            dataGridView1.Rows[i].Cells[j].Value = total.ToString();
                         }
+                        dataGridView1.Rows.RemoveAt(i + 1);
                     }
+                    else
+                    {
+                        tempA = tempB;
+                    }
+                }
 
-                    columnCount = dataGridView1.ColumnCount;
-                    rowCount = dataGridView1.RowCount;
+                columnCount = dataGridView1.ColumnCount;
+                rowCount = dataGridView1.RowCount;
 
+                for (int j = 0; j < rowCount - 1; j++)
+                {
+                    int tempD = int.Parse(dataGridView1.Rows[j].Cells[6].Value.ToString());
+                    int tempC = int.Parse(dataGridView1.Rows[j].Cells[12].Value.ToString());
+                    if (tempD == 0)
+                        dataGridView1.Rows[j].Cells[13].Value = "0";
+                    else
+                        dataGridView1.Rows[j].Cells[13].Value = (tempC * 10000 / tempD / 100.0).ToString();
+                }
+
+                for (int i = 15; i < 50; i += 2)
+                {
                     for (int j = 0; j < rowCount - 1; j++)
                     {
-                        int tempD = int.Parse(dataGridView1.Rows[j].Cells[6].Value.ToString());
-                        int tempC = int.Parse(dataGridView1.Rows[j].Cells[12].Value.ToString());
+                        int tempD = int.Parse(dataGridView1.Rows[j].Cells[9].Value.ToString());
+                        int tempC = int.Parse(dataGridView1.Rows[j].Cells[i - 1].Value.ToString());
                         if (tempD == 0)
-                            dataGridView1.Rows[j].Cells[13].Value = "0";
+                            dataGridView1.Rows[j].Cells[i].Value = "0";
                         else
-                            dataGridView1.Rows[j].Cells[13].Value = (tempC * 10000 / tempD / 100.0).ToString();
+                            dataGridView1.Rows[j].Cells[i].Value = (tempC * 10000 / tempD / 100.0).ToString();
                     }
-
-                    for (int i = 15; i < 50; i += 2)
-                    {
-                        for (int j = 0; j < rowCount - 1; j++)
-                        {
-                            int tempD = int.Parse(dataGridView1.Rows[j].Cells[9].Value.ToString());
-                            int tempC = int.Parse(dataGridView1.Rows[j].Cells[i - 1].Value.ToString());
-                            if (tempD == 0)
-                                dataGridView1.Rows[j].Cells[i].Value = "0";
-                            else
-                                dataGridView1.Rows[j].Cells[i].Value = (tempC * 10000 / tempD / 100.0).ToString();
-                        }
-                    }
-                    return true;
                 }
-                #endregion
-
+                return true;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
-            }
-            return false;           
+            }        
         }
 
         #endregion
@@ -116,6 +110,7 @@ namespace ExcelApplication
                 comboBox1.DataSource = tmp.GetWorkSheets();
                 tmp.Close();
                 btnLoadData.Enabled = true;
+                txtColumn.Text = "0";
             }
             else
             {
@@ -338,6 +333,7 @@ namespace ExcelApplication
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             btnLoadData.Enabled = true;
+            txtColumn.Text = "0";
         }
 
         private void txtColumn_TextChanged(object sender, EventArgs e)
