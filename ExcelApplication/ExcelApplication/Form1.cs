@@ -154,43 +154,46 @@ namespace ExcelApplication
                 dataGridView1.ColumnCount = columnCount;
                 int rowCount = tmp.GetRowCount() - 1;
                 dataGridView1.RowCount = rowCount;
+                int startRow = int.Parse(txtColumn.Text);
                 
                 for (int i = 0; i < columnCount; i++)
                 {
-                    dataGridView1.Columns[i].HeaderCell.Value = tmp.GetCellValue(2, i + 1);
+                    dataGridView1.Columns[i].HeaderCell.Value = tmp.GetCellValue(startRow+1, i + 1);
                 }
 
                 for (int j = 0; j < rowCount-1; j++)
                 {
                     for (int i = 0; i < columnCount; i++)
                     {
-                        if (string.IsNullOrEmpty(tmp.GetCellValue(j + 3, i + 1)))
+                        if (string.IsNullOrEmpty(tmp.GetCellValue(j + startRow + 2, i + 1)))
                         {
                             dataGridView1.Rows[j].Cells[i].Value = "0";
                         }
                         else
                         {
-                            dataGridView1.Rows[j].Cells[i].Value = tmp.GetCellValue(j + 3, i + 1);
+                            dataGridView1.Rows[j].Cells[i].Value = tmp.GetCellValue(j + startRow + 2, i + 1);
                         }
                     }
                 }
-
                 tmp.Close();
 
-                //string[] rowValue = new string[rowCount];
-                //for (int i = 0; i < rowCount - 1; i++)
-                //{
-                //    rowValue[i] = (string)dataGridView1.Rows[i].Cells[1].Value;
-                //    rowValue[i] = rowValue[i].TrimStart('M');
-                //    dataGridView1.Rows[i].Cells[2].Value = (rowValue[i].Length > 6) ? rowValue[i].Substring(0, 6) : rowValue[i];
-                //}
-                //dataGridView1.Columns[2].HeaderCell.Value = "铸锭编号";
+                if (dataGridView1.Columns[1].HeaderCell.Value.GetHashCode() == "晶棒号".GetHashCode())
+                {
+                    string[] rowValue = new string[rowCount];
+                    for (int i = 0; i < rowCount - 1; i++)
+                    {
+                        rowValue[i] = (string)dataGridView1.Rows[i].Cells[1].Value;
+                        rowValue[i] = rowValue[i].TrimStart('M');
+                        dataGridView1.Rows[i].Cells[2].Value = (rowValue[i].Length > 6) ? rowValue[i].Substring(0, 6) : rowValue[i];
+                    }
+                    dataGridView1.Columns[2].HeaderCell.Value = "铸锭编号";
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            //btnLoadData.Enabled = false;
+            btnLoadData.Enabled = false;
         }
       
         private void codeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -263,14 +266,16 @@ namespace ExcelApplication
             {
                 for (int i = columnCount - 1; i > 49; i--)
                 {
+                    switch (i)
+                    {
+                        case 55:
+                        case 54:
+                        case 53:
+                            continue;
+                            //break;
+                    }
                     dataGridView1.Columns.RemoveAt(i);
                 }
-
-                //for (int j = rowCount - 1; j >0; j--)
-                //{
-                    //if (string.IsNullOrEmpty(dataGridView1.Rows[rowCount - 1].Cells[1].Value.ToString()))
-                    //    dataGridView1.Rows.RemoveAt(rowCount - 1);
-                //}
 
                 columnCount = dataGridView1.ColumnCount;
                 rowCount = dataGridView1.RowCount;
@@ -328,6 +333,16 @@ namespace ExcelApplication
             int selectCol = 5;
             if (dataTotal(selectCol))
                 MessageBox.Show("Processed Data Success!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            btnLoadData.Enabled = true;
+        }
+
+        private void txtColumn_TextChanged(object sender, EventArgs e)
+        {
+            btnLoadData.Enabled = true;
         }   
 
     }
