@@ -176,10 +176,10 @@ namespace ExcelApplication
                     }
                 }
                 tmp.Close();
-
+                                
                 if (dataGridView1.Columns[1].HeaderCell.Value.GetHashCode() == "晶棒号".GetHashCode())
                 {
-                    string[] rowValue = new string[rowCount];
+                    string[] rowValue = new string[dataGridView1.RowCount];
                     for (int i = 0; i < rowCount - 1; i++)
                     {
                         rowValue[i] = (string)dataGridView1.Rows[i].Cells[1].Value;
